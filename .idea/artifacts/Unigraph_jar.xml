@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Unigraph:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Unigraph_jar</output-path>
+    <root id="archive" name="Unigraph.jar">
+      <element id="module-output" name="Unigraph" />
+      <element id="module-output" name="Uniwork" />
+    </root>
+  </artifact>
+</component>

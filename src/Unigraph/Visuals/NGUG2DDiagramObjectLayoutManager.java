@@ -1,6 +1,8 @@
 package Unigraph.Visuals;
 
+import Unigraph.Base.NGUGCustomDiagramLink;
 import Unigraph.Base.NGUGCustomDiagramLinkLayout;
+import Unigraph.Base.NGUGCustomDiagramObject;
 import Unigraph.Base.NGUGCustomDiagramObjectLayout;
 import Uniwork.Base.NGComponent;
 
@@ -34,5 +36,20 @@ public class NGUG2DDiagramObjectLayoutManager extends NGComponent {
         FLinkLayouts.add(aDiagramLinkLayout);
     }
 
+    public NGUGCustomDiagramObjectLayout getObjectLayout(NGUGCustomDiagramObject aDiagramObject) {
+        for (NGUGCustomDiagramObjectLayout layout : FObjectLayouts) {
+            if (layout.getDiagramObject().equals(aDiagramObject))
+                return  layout;
+        }
+        return null;
+    }
+
+    public NGUGCustomDiagramLinkLayout getLinkLayout(NGUGCustomDiagramLink aDiagramLink) {
+        for (NGUGCustomDiagramLinkLayout layout : FLinkLayouts) {
+            if (layout.getDiagramLink().equals(aDiagramLink))
+                return  layout;
+        }
+        return null;
+    }
 
 }

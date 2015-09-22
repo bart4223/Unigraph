@@ -1,11 +1,19 @@
 package Unigraph.Graphics;
 
-import Unigraph.Base.NGUGDiagramObjectManager;
+import Unigraph.Base.NGUGCustomDiagramObjectLayout;
 import Unigraph.Visuals.NGUG2DDiagramObjectLayoutManager;
+import Uniwork.Visuals.NGDisplayController;
 import Uniwork.Visuals.NGDisplayManager;
 import javafx.scene.canvas.Canvas;
 
+import java.util.Iterator;
+
 public class NGUG2DDiagramDisplayManager extends NGDisplayManager {
+
+    protected void CreateDiagramDisplayController() {
+        NGDisplayController dc = new NGUG2DClassObjectDisplayController(FCanvas);
+        addController(dc);
+    }
 
     @Override
     protected void DoBeforeRender() {
@@ -13,9 +21,24 @@ public class NGUG2DDiagramDisplayManager extends NGDisplayManager {
         FGC.clearRect(FPosition.getXAsInt() * FPixelSize, FPosition.getYAsInt() * FPixelSize, FWidth, FHeight);
     }
 
+    protected NGDisplayController getDiagramDisplayController(NGUGCustomDiagramObjectLayout aDiagramObjectLayout) {
+        for (NGDisplayController dc : FControllers) {
+            if (dc instanceof NGUGDiagramDisplayController) {
+                NGUGDiagramDisplayController ddc = (NGUGDiagramDisplayController)dc;
+                if (ddc.SupportLayoutClass(aDiagramObjectLayout.getClass()))
+                    return dc;
+            }
+        }
+        return null;
+    }
+
     @Override
     protected void InternalRender() {
-        super.InternalRender();
+        Iterator<NGUGCustomDiagramObjectLayout> itr = ObjectLayoutManager.getObjectLayouts();
+        while (itr.hasNext()) {
+            setCurrentController(getDiagramDisplayController(itr.next()));
+            super.InternalRender();
+        }
     }
 
     public NGUG2DDiagramDisplayManager(Canvas aCanvas) {
@@ -24,11 +47,10 @@ public class NGUG2DDiagramDisplayManager extends NGDisplayManager {
 
     public NGUG2DDiagramDisplayManager(Canvas aCanvas, String aName) {
         super(aCanvas, aName);
-        ObjectManager = null;
+        CreateDiagramDisplayController();
         ObjectLayoutManager = null;
     }
 
-    public NGUGDiagramObjectManager ObjectManager;
     public NGUG2DDiagramObjectLayoutManager ObjectLayoutManager;
 
 }

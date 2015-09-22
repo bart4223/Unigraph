@@ -3,13 +3,15 @@ package Unigraph.Visuals;
 import Unigraph.Base.NGUGCustomDiagramObject;
 import Unigraph.Base.NGUGCustomDiagramObjectLayout;
 import Uniwork.Graphics.NGPoint2D;
+import javafx.scene.paint.Color;
 
 public class NGUG2DDiagramObjectLayout extends NGUGCustomDiagramObjectLayout {
 
-    public Integer FWidth;
-    public Integer FHeight;
-    public NGPoint2D FPosition;
-    public Integer FZOrder;
+    protected Integer FWidth;
+    protected Integer FHeight;
+    protected NGPoint2D FPosition;
+    protected Integer FZOrder;
+    protected Color FLineColor;
 
     public NGUG2DDiagramObjectLayout(NGUGCustomDiagramObject aDiagramObject, Integer aWidth, Integer aHeight) {
         super(aDiagramObject);
@@ -17,6 +19,7 @@ public class NGUG2DDiagramObjectLayout extends NGUGCustomDiagramObjectLayout {
         FHeight = aHeight;
         FPosition = new NGPoint2D(0, 0);
         FZOrder = 0;
+        FLineColor = Color.BLACK;
     }
 
     public Integer getWidth() {
@@ -42,6 +45,14 @@ public class NGUG2DDiagramObjectLayout extends NGUGCustomDiagramObjectLayout {
 
     public Integer getZOrder() {
         return FZOrder;
+    }
+
+    public void setLineColor(Color aLineColor) {
+        FLineColor = aLineColor;
+    }
+
+    public Color getLineColor() {
+        return FLineColor;
     }
 
 }

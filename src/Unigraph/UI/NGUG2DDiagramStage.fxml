@@ -1,0 +1,6 @@
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.canvas.Canvas?>
+<AnchorPane fx:controller="Unigraph.UI.NGUG2DDiagramStageController" xmlns:fx="http://javafx.com/fxml" fx:id="AnchorPane0" style="-fx-background-color: white;">
+    <Canvas id="Layer0" height="800" width="1600" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" fx:id="Layer0" />
+    <Canvas id="LayerTop" height="800" width="1600" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" fx:id="LayerTop" />
+</AnchorPane>

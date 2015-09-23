@@ -1,5 +1,6 @@
 package Unigraph;
 
+import Unigraph.Base.NGUGDiagramEventListener;
 import Unigraph.Base.NGUGDiagramObjectManager;
 import Unigraph.Objects.NGUGClassDiagramObject;
 import Unigraph.Objects.NGUGSimpleDiagramLink;
@@ -8,6 +9,7 @@ import Unigraph.Visuals.NGUG2DClassDiagramObjectLayout;
 import Unigraph.Visuals.NGUG2DDiagramObjectLayoutManager;
 import Unigraph.Visuals.NGUG2DSimpleDiagramLinkLayout;
 import Unigraph.Visuals.NGUG2DTableDiagramObjectLayout;
+import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Appl.NGVisualApplicationModule;
 import Uniwork.Base.NGComponent;
 import Uniwork.Misc.NGLogManager;
@@ -17,10 +19,20 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     protected NGUGDiagramObjectManager FObjectManager;
     protected NGUG2DDiagramObjectLayoutManager FObjectLayoutManager;
 
+    @Override
+    protected void DoBeforeInitialize() {
+        super.DoBeforeInitialize();
+        NGCustomStageItem item = FStageManager.addStageItem("Diagram");
+        item.setCaption(String.format("%s.Diagram", getDescription()));
+        item.setPosition(100, 100);
+        FObjectManager.addEventListener((NGUGDiagramEventListener)item);
+    }
+
     public NGUnigraph2DApplicationModule(NGComponent aOwner, String aName) {
         super(aOwner, aName);
         FObjectManager = new NGUGDiagramObjectManager(this, NGUnigraphConsts.C_COMPONENT_DOM);
         FObjectLayoutManager = new NGUG2DDiagramObjectLayoutManager(this, NGUnigraphConsts.C_COMPONENT_DOLM);
+        FStageManager.registerItemClass("Diagram", "Unigraph.NGUG2DDiagramStageItem");
     }
 
     @Override

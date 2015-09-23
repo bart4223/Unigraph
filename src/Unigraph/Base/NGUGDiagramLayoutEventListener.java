@@ -1,0 +1,8 @@
+package Unigraph.Base;
+
+public interface NGUGDiagramLayoutEventListener {
+
+    void handleObjectLayoutAdded(NGUGDiagramObjectLayoutEvent e);
+    void handleLinkLayoutAdded(NGUGDiagramLinkLayoutEvent e);
+
+}

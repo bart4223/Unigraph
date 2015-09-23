@@ -11,4 +11,5 @@ Version History
 ===============
 
     16.09.2015      Start implementation
+    23.09.2015      Diagram events
 

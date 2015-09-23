@@ -1,13 +1,11 @@
 package Unigraph.Base;
 
-import Uniwork.Base.NGObject;
-
-public abstract class NGUGCustomDiagramObjectLayout extends NGObject {
+public class NGUGDiagramObjectEvent extends NGUGDiagramEvent {
 
     protected NGUGCustomDiagramObject FDiagramObject;
 
-    public NGUGCustomDiagramObjectLayout(NGUGCustomDiagramObject aDiagramObject) {
-        super();
+    public NGUGDiagramObjectEvent(Object source, NGUGCustomDiagramObject aDiagramObject) {
+        super(source);
         FDiagramObject = aDiagramObject;
     }
 

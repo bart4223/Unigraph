@@ -10,11 +10,27 @@ public class NGUGDiagramObjectManager extends NGComponent {
 
     protected ArrayList<NGUGCustomDiagramObject> FObjects;
     protected ArrayList<NGUGCustomDiagramLink> FLinks;
+    protected ArrayList<NGUGDiagramEventListener> FEventListeners;
+
+    protected synchronized void raiseObjectAddedEvent(NGUGCustomDiagramObject aDiagramObject) {
+        NGUGDiagramObjectEvent event = new NGUGDiagramObjectEvent(this, aDiagramObject);
+        for (NGUGDiagramEventListener listener : FEventListeners) {
+            listener.handleObjectAdded(event);
+        }
+    }
+
+    protected synchronized void raiseLinkAddedEvent(NGUGCustomDiagramLink aDiagramLink) {
+        NGUGDiagramLinkEvent event = new NGUGDiagramLinkEvent(this, aDiagramLink);
+        for (NGUGDiagramEventListener listener : FEventListeners) {
+            listener.handleLinkAdded(event);
+        }
+    }
 
     public NGUGDiagramObjectManager(NGComponent aOwner, String aName) {
         super(aOwner, aName);
         FObjects = new ArrayList<>();
         FLinks = new ArrayList<>();
+        FEventListeners = new ArrayList<>();
     }
 
     public Iterator<NGUGCustomDiagramObject> getObjects() {
@@ -25,13 +41,23 @@ public class NGUGDiagramObjectManager extends NGComponent {
         return FLinks.iterator();
     }
 
+    public void addEventListener(NGUGDiagramEventListener aListener)  {
+        FEventListeners.add(aListener);
+    }
+
+    public void removeEventListener(NGUGDiagramEventListener aListener)   {
+        FEventListeners.remove(aListener);
+    }
+
     public void addObject(NGUGCustomDiagramObject aDiagramObject) {
         FObjects.add(aDiagramObject);
+        raiseObjectAddedEvent(aDiagramObject);
         writeInfo(NGUnigraphConsts.C_DEBUG_OBJECT_ADD, String.format("Diagram object %s [%s] added", aDiagramObject.getKind(), aDiagramObject.getName()));
     }
 
     public void addLink(NGUGCustomDiagramLink aDiagramLink) {
         FLinks.add(aDiagramLink);
+        raiseLinkAddedEvent(aDiagramLink);
         writeInfo(NGUnigraphConsts.C_DEBUG_OBJECT_ADD, String.format("Diagram link %s added", aDiagramLink.getKind()));
     }
 

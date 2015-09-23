@@ -13,6 +13,8 @@ public class NGUG2DDiagramDisplayManager extends NGDisplayManager {
     protected void CreateDiagramDisplayController() {
         NGDisplayController dc = new NGUG2DClassObjectDisplayController(FCanvas);
         addController(dc);
+        dc = new NGUG2DTableObjectDisplayController(FCanvas);
+        addController(dc);
     }
 
     @Override

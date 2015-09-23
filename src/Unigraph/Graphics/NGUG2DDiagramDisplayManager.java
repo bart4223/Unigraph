@@ -1,14 +1,15 @@
 package Unigraph.Graphics;
 
 import Unigraph.Base.NGUGCustomDiagramObjectLayout;
-import Unigraph.Visuals.NGUG2DDiagramObjectLayoutManager;
 import Uniwork.Visuals.NGDisplayController;
 import Uniwork.Visuals.NGDisplayManager;
 import javafx.scene.canvas.Canvas;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 
 public class NGUG2DDiagramDisplayManager extends NGDisplayManager {
+
+    protected ArrayList<NGUGCustomDiagramObjectLayout> FObjectLayouts;
 
     protected void CreateDiagramDisplayController() {
         NGDisplayController dc = new NGUG2DClassObjectDisplayController(FCanvas);
@@ -36,9 +37,8 @@ public class NGUG2DDiagramDisplayManager extends NGDisplayManager {
 
     @Override
     protected void InternalRender() {
-        Iterator<NGUGCustomDiagramObjectLayout> itr = ObjectLayoutManager.getObjectLayouts();
-        while (itr.hasNext()) {
-            setCurrentController(getDiagramDisplayController(itr.next()));
+        for (NGUGCustomDiagramObjectLayout layout : FObjectLayouts) {
+            setCurrentController(getDiagramDisplayController(layout));
             super.InternalRender();
         }
     }
@@ -50,9 +50,15 @@ public class NGUG2DDiagramDisplayManager extends NGDisplayManager {
     public NGUG2DDiagramDisplayManager(Canvas aCanvas, String aName) {
         super(aCanvas, aName);
         CreateDiagramDisplayController();
-        ObjectLayoutManager = null;
+        FObjectLayouts = new ArrayList<>();
     }
 
-    public NGUG2DDiagramObjectLayoutManager ObjectLayoutManager;
+    public void addObjectLayout(NGUGCustomDiagramObjectLayout aObjectLayout) {
+        FObjectLayouts.add(aObjectLayout);
+    }
+
+    public void removeObjectLayout(NGUGCustomDiagramObjectLayout aObjectLayout) {
+        FObjectLayouts.remove(aObjectLayout);
+    }
 
 }

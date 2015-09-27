@@ -6,11 +6,22 @@ import Uniwork.Base.NGComponent;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class NGUG2DDiagramObjectLayoutManager extends NGComponent {
+public class NGUG2DDiagramLayoutManager extends NGComponent {
 
     protected ArrayList<NGUGCustomDiagramObjectLayout> FObjectLayouts;
     protected ArrayList<NGUGCustomDiagramLinkLayout> FLinkLayouts;
     protected ArrayList<NGUGDiagramLayoutEventListener> FEventListeners;
+    protected ArrayList<NGUG2DDiagramLayer> FDiagramLayers;
+
+    protected synchronized void raiseLayerAddedEvent(NGUG2DDiagramLayer aDiagramLayer) {
+        NGUG2DDiagramLayerEvent event = new NGUG2DDiagramLayerEvent(this, aDiagramLayer);
+        for (NGUGDiagramLayoutEventListener listener : FEventListeners) {
+            if (listener instanceof NGUG2DDiagramLayoutEventListener) {
+                NGUG2DDiagramLayoutEventListener listenerLayer = (NGUG2DDiagramLayoutEventListener)listener;
+                listenerLayer.handleLayerAdded(event);
+            }
+        }
+    }
 
     protected synchronized void raiseObjectLayoutAddedEvent(NGUGCustomDiagramObjectLayout aDiagramObjectLayout) {
         NGUGDiagramObjectLayoutEvent event = new NGUGDiagramObjectLayoutEvent(this, aDiagramObjectLayout);
@@ -26,11 +37,12 @@ public class NGUG2DDiagramObjectLayoutManager extends NGComponent {
         }
     }
 
-    public NGUG2DDiagramObjectLayoutManager(NGComponent aOwner, String aName) {
+    public NGUG2DDiagramLayoutManager(NGComponent aOwner, String aName) {
         super(aOwner, aName);
         FObjectLayouts = new ArrayList<>();
         FLinkLayouts = new ArrayList<>();
         FEventListeners = new ArrayList<>();
+        FDiagramLayers = new ArrayList<>();
     }
 
     public Iterator<NGUGCustomDiagramObjectLayout> getObjectLayouts() {
@@ -47,6 +59,13 @@ public class NGUG2DDiagramObjectLayoutManager extends NGComponent {
 
     public void removeEventListener(NGUGDiagramLayoutEventListener aListener)   {
         FEventListeners.remove(aListener);
+    }
+
+    public NGUG2DDiagramLayer addLayer(String aName, Integer aZOrder) {
+        NGUG2DDiagramLayer res = new NGUG2DDiagramLayer(this, aName, aZOrder);
+        FDiagramLayers.add(res);
+        raiseLayerAddedEvent(res);
+        return res;
     }
 
     public void addObjectLayout(NGUG2DDiagramObjectLayout aDiagramObjectLayout) {

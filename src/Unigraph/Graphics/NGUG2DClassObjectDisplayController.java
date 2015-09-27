@@ -26,4 +26,5 @@ public class NGUG2DClassObjectDisplayController extends NGDisplayController impl
     public Boolean SupportLayoutClass(Class aDiagramObjectLayoutClass) {
         return aDiagramObjectLayoutClass.equals(NGUG2DClassDiagramObjectLayout.class);
     }
+
 }

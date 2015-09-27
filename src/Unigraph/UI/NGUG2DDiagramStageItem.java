@@ -1,11 +1,13 @@
 package Unigraph.UI;
 
 import Unigraph.Base.*;
+import Unigraph.Visuals.NGUG2DDiagramLayerEvent;
+import Unigraph.Visuals.NGUG2DDiagramLayoutEventListener;
 import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Appl.NGStageManager;
 import javafx.stage.Stage;
 
-public class NGUG2DDiagramStageItem extends NGCustomStageItem implements NGUGDiagramEventListener, NGUGDiagramLayoutEventListener {
+public class NGUG2DDiagramStageItem extends NGCustomStageItem implements NGUGDiagramEventListener, NGUG2DDiagramLayoutEventListener {
 
     public NGUG2DDiagramStageItem(NGStageManager aStageManager, String aName, Stage aStage) {
         super(aStageManager, aName, aStage);
@@ -27,13 +29,19 @@ public class NGUG2DDiagramStageItem extends NGCustomStageItem implements NGUGDia
     @Override
     public void handleObjectLayoutAdded(NGUGDiagramObjectLayoutEvent e) {
         NGUG2DDiagramStageController sc = (NGUG2DDiagramStageController)FStageController;
-        sc.addObjectLayout(e.getDiagramObjectLayout());
+        sc.addDiagramObjectLayout(e.getDiagramObjectLayout());
     }
 
     @Override
     public void handleLinkLayoutAdded(NGUGDiagramLinkLayoutEvent e) {
         NGUG2DDiagramStageController sc = (NGUG2DDiagramStageController)FStageController;
-        sc.addLinkLayout(e.getDiagramLinkLayout());
+        sc.addDiagramLinkLayout(e.getDiagramLinkLayout());
+    }
+
+    @Override
+    public void handleLayerAdded(NGUG2DDiagramLayerEvent e) {
+        NGUG2DDiagramStageController sc = (NGUG2DDiagramStageController)FStageController;
+        sc.addDiagramLayer(e.getDigramLayer());
     }
 
 }

@@ -4,25 +4,25 @@ import Uniwork.Base.NGObject;
 
 public abstract class NGUGCustomDiagramLink extends NGObject {
 
-    protected String FFromID;
-    protected String FToID;
+    protected NGUGCustomDiagramObject FFromObject;
+    protected NGUGCustomDiagramObject FToObject;
 
-    public NGUGCustomDiagramLink(String aFromID, String aToID) {
+    public NGUGCustomDiagramLink(NGUGCustomDiagramObject aFromObject, NGUGCustomDiagramObject aToObject) {
         super();
-        FFromID = aFromID;
-        FToID = aToID;
+        FFromObject = aFromObject;
+        FToObject = aToObject;
     }
 
     public String getKind() {
         return "";
     }
 
-    public String getFromID() {
-        return FFromID;
+    public NGUGCustomDiagramObject getFromObject() {
+        return FFromObject;
     }
 
-    public String getToID() {
-        return FToID;
+    public NGUGCustomDiagramObject getToObject() {
+        return FToObject;
     }
 
 }

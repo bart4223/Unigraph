@@ -1,11 +1,12 @@
 package Unigraph.Objects;
 
 import Unigraph.Base.NGUGCustomDiagramLink;
+import Unigraph.Base.NGUGCustomDiagramObject;
 
 public class NGUGSimpleDiagramLink extends NGUGCustomDiagramLink {
 
-    public NGUGSimpleDiagramLink(String aFromID, String aToID) {
-        super(aFromID, aToID);
+    public NGUGSimpleDiagramLink(NGUGCustomDiagramObject aFromObject, NGUGCustomDiagramObject aToObject) {
+        super(aFromObject, aToObject);
     }
 
     public final String getKind() {

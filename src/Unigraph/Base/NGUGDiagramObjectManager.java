@@ -61,4 +61,12 @@ public class NGUGDiagramObjectManager extends NGComponent {
         writeInfo(NGUnigraphConsts.C_DEBUG_OBJECT_ADD, String.format("Diagram link %s added", aDiagramLink.getKind()));
     }
 
+    public NGUGCustomDiagramObject getDiagramObjectByID(String aID) {
+        for (NGUGCustomDiagramObject obj : FObjects) {
+            if (obj.getID().equals(aID))
+                return obj;
+        }
+        return null;
+    }
+
 }

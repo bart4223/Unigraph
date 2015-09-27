@@ -1,12 +1,11 @@
 package Unigraph.Visuals;
 
 import Unigraph.Base.NGUGCustomDiagramLink;
-import Unigraph.Base.NGUGCustomDiagramLinkLayout;
 
-public class NGUG2DSimpleDiagramLinkLayout extends NGUGCustomDiagramLinkLayout {
+public class NGUG2DSimpleDiagramLinkLayout extends NGUG2DDiagramLinkLayout {
 
-    public NGUG2DSimpleDiagramLinkLayout(NGUGCustomDiagramLink aDiagramLink) {
-        super(aDiagramLink);
+    public NGUG2DSimpleDiagramLinkLayout(NGUG2DDiagramLayoutManager aLayoutManager, NGUGCustomDiagramLink aDiagramLink) {
+        super(aLayoutManager, aDiagramLink);
     }
 
 }

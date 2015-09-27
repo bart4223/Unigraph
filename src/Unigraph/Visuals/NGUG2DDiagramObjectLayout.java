@@ -10,16 +10,26 @@ public class NGUG2DDiagramObjectLayout extends NGUGCustomDiagramObjectLayout {
     protected Integer FWidth;
     protected Integer FHeight;
     protected NGPoint2D FPosition;
-    protected Integer FZOrder;
     protected Color FLineColor;
+    protected NGUG2DDiagramLayer FDiagramLayer;
+    protected NGUG2DDiagramLayoutManager FLayoutManager;
 
-    public NGUG2DDiagramObjectLayout(NGUGCustomDiagramObject aDiagramObject, Integer aWidth, Integer aHeight) {
+    public NGUG2DDiagramObjectLayout(NGUGCustomDiagramObject aDiagramObject, NGUG2DDiagramLayer aDiagramLayer, Integer aWidth, Integer aHeight) {
         super(aDiagramObject);
         FWidth = aWidth;
         FHeight = aHeight;
         FPosition = new NGPoint2D(0, 0);
-        FZOrder = 0;
         FLineColor = Color.BLACK;
+        FDiagramLayer = aDiagramLayer;
+        FLayoutManager = FDiagramLayer.getLayoutManager();
+    }
+
+    protected NGUG2DDiagramLayoutManager getLayoutManager() {
+        return FLayoutManager;
+    }
+
+    public NGUG2DDiagramLayer getDiagramLayer() {
+        return FDiagramLayer;
     }
 
     public Integer getWidth() {
@@ -39,20 +49,20 @@ public class NGUG2DDiagramObjectLayout extends NGUGCustomDiagramObjectLayout {
         return FPosition;
     }
 
-    public void setZOrder(Integer aZOrder) {
-        FZOrder = aZOrder;
-    }
-
-    public Integer getZOrder() {
-        return FZOrder;
-    }
-
     public void setLineColor(Color aLineColor) {
         FLineColor = aLineColor;
     }
 
     public Color getLineColor() {
         return FLineColor;
+    }
+
+    public String getDiagramLayerID() {
+        return FDiagramLayer.getID();
+    }
+
+    public Integer getDiagramLayerZOrder() {
+        return FDiagramLayer.getZOrder();
     }
 
 }

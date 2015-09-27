@@ -3,8 +3,12 @@ package Unigraph.UI;
 import Unigraph.Base.NGUGCustomDiagramLinkLayout;
 import Unigraph.Base.NGUGCustomDiagramObjectLayout;
 import Unigraph.Graphics.NGUG2DDiagramDisplayManager;
+import Unigraph.Visuals.NGUG2DDiagramLayer;
+import Unigraph.Visuals.NGUG2DDiagramLayoutManager;
+import Unigraph.Visuals.NGUG2DDiagramLinkLayout;
 import Unigraph.Visuals.NGUG2DDiagramObjectLayout;
 import Uniwork.Appl.NGCustomStageItem;
+import Uniwork.Visuals.NGDisplayManager;
 import Uniwork.Visuals.NGDisplayView;
 import Uniwork.Visuals.NGGrid2DDisplayController;
 import Uniwork.Visuals.NGStageController;
@@ -17,6 +21,26 @@ import java.util.ArrayList;
 
 public class NGUG2DDiagramStageController extends NGStageController {
 
+    protected class DiagramLayer {
+
+        protected Canvas FCanvas;
+        protected Integer FZOrder;
+
+        public DiagramLayer(Canvas aCanvas, Integer aZOrder) {
+            FCanvas = aCanvas;
+            FZOrder = aZOrder;
+        }
+
+        public Canvas getCanvas() {
+            return FCanvas;
+        }
+
+        public Integer getZOrder() {
+            return FZOrder;
+        }
+
+    }
+
     @FXML
     private AnchorPane AnchorPane0;
 
@@ -26,7 +50,7 @@ public class NGUG2DDiagramStageController extends NGStageController {
     @FXML
     private Canvas LayerTop;
 
-    protected ArrayList<Canvas> FLayers;
+    protected ArrayList<DiagramLayer> FDiagramLayers;
     protected NGDisplayView FDisplayView;
 
     @Override
@@ -40,13 +64,36 @@ public class NGUG2DDiagramStageController extends NGStageController {
         registerDisplayController(dcgrid);
     }
 
-    protected NGUG2DDiagramDisplayManager CreateDiagramLayer(String aLayername) {
+    protected Canvas getOverlyingLayer(Integer aZOrder) {
+        DiagramLayer res = null;
+        for (DiagramLayer layer : FDiagramLayers) {
+            if (layer.getZOrder() > aZOrder) {
+                if (res == null || (res.getZOrder() > layer.getZOrder()))
+                    res = layer;
+            }
+        }
+        if (res != null)
+            return res.getCanvas();
+        else
+            return null;
+    }
+
+    protected String getLayerName(String aID) {
+        return String.format("Layer.%s", aID);
+    }
+
+    protected NGUG2DDiagramDisplayManager CreateDiagramLayer(NGUG2DDiagramLayer aDiagramLayer) {
+        String layername = getLayerName(aDiagramLayer.getID());
         Canvas canvas = new Canvas();
-        FLayers.add(canvas);
         canvas.setHeight(AnchorPane0.getHeight());
         canvas.setWidth(AnchorPane0.getWidth());
-        AnchorPane0.getChildren().add(AnchorPane0.getChildren().size() - 2, canvas);
-        NGUG2DDiagramDisplayManager dm = new NGUG2DDiagramDisplayManager(canvas, aLayername);
+        FDiagramLayers.add(new DiagramLayer(canvas, aDiagramLayer.getZOrder()));
+        Canvas OverLayingCanvas = getOverlyingLayer(aDiagramLayer.getZOrder());
+        if (OverLayingCanvas == null)
+            OverLayingCanvas = LayerTop;
+        Integer index = FDiagramLayers.indexOf(OverLayingCanvas);
+        AnchorPane0.getChildren().add(index, canvas);
+        NGUG2DDiagramDisplayManager dm = new NGUG2DDiagramDisplayManager(canvas, layername);
         dm.setView(FDisplayView);
         return dm;
     }
@@ -57,23 +104,37 @@ public class NGUG2DDiagramStageController extends NGStageController {
 
     public NGUG2DDiagramStageController(NGCustomStageItem aStageItem) {
         super(aStageItem);
-        FLayers = new ArrayList<>();
+        FDiagramLayers = new ArrayList<>();
     }
 
-    public void addObjectLayout(NGUGCustomDiagramObjectLayout aDiagramObjectLayout) {
+    public void addDiagramObjectLayout(NGUGCustomDiagramObjectLayout aDiagramObjectLayout) {
         if (aDiagramObjectLayout instanceof NGUG2DDiagramObjectLayout) {
             NGUG2DDiagramObjectLayout layout = (NGUG2DDiagramObjectLayout)aDiagramObjectLayout;
-            String name = String.format("Objects.%d",layout.getZOrder());
-            NGUG2DDiagramDisplayManager dm = (NGUG2DDiagramDisplayManager)getDisplayController(name);
-            if (dm == null)
-                dm = CreateDiagramLayer(name);
+            String layername = getLayerName(layout.getDiagramLayerID());
+            NGUG2DDiagramDisplayManager dm = (NGUG2DDiagramDisplayManager)getDisplayController(layername);
             dm.addObjectLayout(aDiagramObjectLayout);
             RenderScene(dm);
         }
     }
 
-    public void addLinkLayout(NGUGCustomDiagramLinkLayout aDiagramLinkLayout) {
+    public void addDiagramLinkLayout(NGUGCustomDiagramLinkLayout aDiagramLinkLayout) {
+        if (aDiagramLinkLayout instanceof NGUG2DDiagramLinkLayout) {
+            NGUG2DDiagramLinkLayout layout = (NGUG2DDiagramLinkLayout)aDiagramLinkLayout;
+            NGUG2DDiagramObjectLayout layoutFrom = (NGUG2DDiagramObjectLayout)layout.getLayoutManager().getObjectLayout(layout.getDiagramLink().getFromObject());
+            NGUG2DDiagramObjectLayout layoutTo = (NGUG2DDiagramObjectLayout)layout.getLayoutManager().getObjectLayout(layout.getDiagramLink().getToObject());
+            String id = layoutFrom.getDiagramLayerID();
+            if (layoutFrom.getDiagramLayerZOrder() > layoutTo.getDiagramLayerZOrder())
+                id = layoutTo.getDiagramLayerID();
+            String layername = getLayerName(id);
+            NGUG2DDiagramDisplayManager dm = (NGUG2DDiagramDisplayManager)getDisplayController(layername);
+            dm.addLinkLayout(aDiagramLinkLayout);
+            RenderScene(dm);
+        }
+    }
 
+    public void addDiagramLayer(NGUG2DDiagramLayer aDiagramLayer) {
+        NGDisplayManager dm = CreateDiagramLayer(aDiagramLayer);
+        RenderScene(dm);
     }
 
 }

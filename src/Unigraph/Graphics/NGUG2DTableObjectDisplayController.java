@@ -10,6 +10,7 @@ public class NGUG2DTableObjectDisplayController extends NGDisplayController impl
     @Override
     protected void DoRender() {
         super.DoRender();
+        fillRectangle(ClassLayout.getPosition().getXAsInt(), ClassLayout.getPosition().getYAsInt(), ClassLayout.getWidth(), ClassLayout.getHeight(), ClassLayout.getObjectColor());
         drawRectangle(ClassLayout.getPosition().getXAsInt(), ClassLayout.getPosition().getYAsInt(), ClassLayout.getWidth(), ClassLayout.getHeight(), ClassLayout.getLineColor());
     }
 

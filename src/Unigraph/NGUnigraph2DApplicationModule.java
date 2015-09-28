@@ -3,6 +3,7 @@ package Unigraph;
 import Unigraph.Base.NGUGCustomDiagramObject;
 import Unigraph.Base.NGUGDiagramEventListener;
 import Unigraph.Base.NGUGDiagramObjectManager;
+import Unigraph.Objects.NGUGBoxDiagramObject;
 import Unigraph.Objects.NGUGClassDiagramObject;
 import Unigraph.Objects.NGUGSimpleDiagramLink;
 import Unigraph.Objects.NGUGTableDiagramObject;
@@ -46,6 +47,20 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     }
 
     @Override
+    public NGUGBoxDiagramObject addBox(String aName, Object aReference) {
+        NGUGBoxDiagramObject res = new NGUGBoxDiagramObject(aName, aReference);
+        FObjectManager.addObject(res);
+        return res;
+    }
+
+    @Override
+    public NGUG2DBoxDiagramObjectLayout addBoxLayout(NGUGBoxDiagramObject aBoxObject, NGUG2DDiagramLayer aDiagramLayer, Integer aWidth, Integer aHeight) {
+        NGUG2DBoxDiagramObjectLayout res = new NGUG2DBoxDiagramObjectLayout(aBoxObject, aDiagramLayer, aWidth, aHeight);
+        FLayoutManager.addObjectLayout(res);
+        return res;
+    }
+
+    @Override
     public NGUGClassDiagramObject addClass(String aName, Object aReference) {
         NGUGClassDiagramObject res = new NGUGClassDiagramObject(aName, aReference);
         FObjectManager.addObject(res);
@@ -53,8 +68,8 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     }
 
     @Override
-    public NGUG2DClassDiagramObjectLayout addClassLayout(NGUGClassDiagramObject aDiagramObject, NGUG2DDiagramLayer aDiagramLayer, Integer aWidth, Integer aHeight) {
-        NGUG2DClassDiagramObjectLayout res = new NGUG2DClassDiagramObjectLayout(aDiagramObject, aDiagramLayer, aWidth, aHeight);
+    public NGUG2DClassDiagramObjectLayout addClassLayout(NGUGClassDiagramObject aClassObject, NGUG2DDiagramLayer aDiagramLayer, Integer aWidth, Integer aHeight) {
+        NGUG2DClassDiagramObjectLayout res = new NGUG2DClassDiagramObjectLayout(aClassObject, aDiagramLayer, aWidth, aHeight);
         FLayoutManager.addObjectLayout(res);
         return res;
     }
@@ -67,8 +82,8 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     }
 
     @Override
-    public NGUG2DTableDiagramObjectLayout addTableLayout(NGUGClassDiagramObject aDiagramObject, NGUG2DDiagramLayer aDiagramLayer, Integer aWidth, Integer aHeight) {
-        NGUG2DTableDiagramObjectLayout res = new NGUG2DTableDiagramObjectLayout(aDiagramObject, aDiagramLayer, aWidth, aHeight);
+    public NGUG2DTableDiagramObjectLayout addTableLayout(NGUGTableDiagramObject aTableObject, NGUG2DDiagramLayer aDiagramLayer, Integer aWidth, Integer aHeight) {
+        NGUG2DTableDiagramObjectLayout res = new NGUG2DTableDiagramObjectLayout(aTableObject, aDiagramLayer, aWidth, aHeight);
         FLayoutManager.addObjectLayout(res);
         return res;
     }

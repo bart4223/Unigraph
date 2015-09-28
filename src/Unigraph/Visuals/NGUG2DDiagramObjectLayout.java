@@ -11,6 +11,7 @@ public class NGUG2DDiagramObjectLayout extends NGUGCustomDiagramObjectLayout {
     protected Integer FHeight;
     protected NGPoint2D FPosition;
     protected Color FLineColor;
+    protected Color FObjectColor;
     protected NGUG2DDiagramLayer FDiagramLayer;
     protected NGUG2DDiagramLayoutManager FLayoutManager;
 
@@ -20,6 +21,7 @@ public class NGUG2DDiagramObjectLayout extends NGUGCustomDiagramObjectLayout {
         FHeight = aHeight;
         FPosition = new NGPoint2D(0, 0);
         FLineColor = Color.BLACK;
+        FObjectColor = Color.WHITE;
         FDiagramLayer = aDiagramLayer;
         FLayoutManager = FDiagramLayer.getLayoutManager();
     }
@@ -55,6 +57,14 @@ public class NGUG2DDiagramObjectLayout extends NGUGCustomDiagramObjectLayout {
 
     public Color getLineColor() {
         return FLineColor;
+    }
+
+    public void setObjectColor(Color aObjectColor) {
+        FObjectColor = aObjectColor;
+    }
+
+    public Color getObjectColor() {
+        return FObjectColor;
     }
 
     public String getDiagramLayerID() {

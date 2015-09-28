@@ -1,10 +1,11 @@
 package Unigraph.Graphics;
 
+import Unigraph.Visuals.NGUG2DBoxDiagramObjectLayout;
 import Unigraph.Visuals.NGUG2DClassDiagramObjectLayout;
 import Uniwork.Visuals.NGDisplayController;
 import javafx.scene.canvas.Canvas;
 
-public class NGUG2DClassObjectDisplayController extends NGDisplayController implements NGUGDiagramDisplayController {
+public class NGUG2DBoxObjectDisplayController extends NGDisplayController implements NGUGDiagramDisplayController {
 
     @Override
     protected void DoRender() {
@@ -13,11 +14,11 @@ public class NGUG2DClassObjectDisplayController extends NGDisplayController impl
         drawRectangle(ClassLayout.getPosition().getXAsInt(), ClassLayout.getPosition().getYAsInt(), ClassLayout.getWidth(), ClassLayout.getHeight(), ClassLayout.getLineColor());
     }
 
-    public NGUG2DClassObjectDisplayController(Canvas aCanvas) {
+    public NGUG2DBoxObjectDisplayController(Canvas aCanvas) {
         this(aCanvas, "");
     }
 
-    public NGUG2DClassObjectDisplayController(Canvas aCanvas, String aName) {
+    public NGUG2DBoxObjectDisplayController(Canvas aCanvas, String aName) {
         super(aCanvas, aName);
     }
 
@@ -25,7 +26,7 @@ public class NGUG2DClassObjectDisplayController extends NGDisplayController impl
 
     @Override
     public Boolean SupportLayoutClass(Class aDiagramObjectLayoutClass) {
-        return aDiagramObjectLayoutClass.equals(NGUG2DClassDiagramObjectLayout.class);
+        return aDiagramObjectLayoutClass.equals(NGUG2DBoxDiagramObjectLayout.class);
     }
 
 }

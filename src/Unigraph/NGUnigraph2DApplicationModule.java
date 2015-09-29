@@ -12,6 +12,7 @@ import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Appl.NGVisualApplicationModule;
 import Uniwork.Base.NGComponent;
 import Uniwork.Misc.NGLogManager;
+import Uniwork.Misc.NGStrings;
 
 public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule implements NGUnigraph2DAPI {
 
@@ -22,8 +23,8 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     protected void DoBeforeInitialize() {
         super.DoBeforeInitialize();
         NGCustomStageItem item = FStageManager.addStageItem("Diagram");
-        item.setCaption(String.format("%s.Diagram", getDescription()));
-        item.setPosition(100, 100);
+        item.setCaption(NGStrings.addString(getDescription(), "Diagram", "."));
+        item.setPosition(600, 200);
         FObjectManager.addEventListener((NGUGDiagramEventListener)item);
         FLayoutManager.addEventListener((NGUG2DDiagramLayoutEventListener)item);
     }
@@ -32,7 +33,7 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
         super(aOwner, aName);
         FObjectManager = new NGUGDiagramObjectManager(this, NGUnigraphConsts.C_COMPONENT_DOM);
         FLayoutManager = new NGUG2DDiagramLayoutManager(this, NGUnigraphConsts.C_COMPONENT_DOLM);
-        FStageManager.registerItemClass("Diagram", "Unigraph.NGUG2DDiagramStageItem");
+        FStageManager.registerItemClass("Diagram", "Unigraph.UI.NGUG2DDiagramStageItem");
     }
 
     @Override

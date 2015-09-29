@@ -42,7 +42,7 @@ public class NGUG2DDiagramStageController extends NGStageController {
     }
 
     @FXML
-    private AnchorPane AnchorPane0;
+    private AnchorPane apLayer;
 
     @FXML
     private Canvas Layer0;
@@ -85,14 +85,15 @@ public class NGUG2DDiagramStageController extends NGStageController {
     protected NGUG2DDiagramDisplayManager CreateDiagramLayer(NGUG2DDiagramLayer aDiagramLayer) {
         String layername = getLayerName(aDiagramLayer.getID());
         Canvas canvas = new Canvas();
-        canvas.setHeight(AnchorPane0.getHeight());
-        canvas.setWidth(AnchorPane0.getWidth());
+        canvas.setHeight(apLayer.getHeight());
+        canvas.setWidth(apLayer.getWidth());
+        canvas.setOpacity(aDiagramLayer.getOpacity());
         FDiagramLayers.add(new DiagramLayer(canvas, aDiagramLayer.getZOrder()));
         Canvas OverLayingCanvas = getOverlyingLayer(aDiagramLayer.getZOrder());
-        if (OverLayingCanvas == null)
-            OverLayingCanvas = LayerTop;
-        Integer index = FDiagramLayers.indexOf(OverLayingCanvas);
-        AnchorPane0.getChildren().add(index, canvas);
+        Integer index = apLayer.getChildren().size() - 2;
+        if (OverLayingCanvas != null)
+            index = FDiagramLayers.indexOf(OverLayingCanvas);
+        apLayer.getChildren().add(index, canvas);
         NGUG2DDiagramDisplayManager dm = new NGUG2DDiagramDisplayManager(canvas, layername);
         dm.setView(FDisplayView);
         return dm;
@@ -134,7 +135,8 @@ public class NGUG2DDiagramStageController extends NGStageController {
 
     public void addDiagramLayer(NGUG2DDiagramLayer aDiagramLayer) {
         NGDisplayManager dm = CreateDiagramLayer(aDiagramLayer);
-        RenderScene(dm);
+        dm.Initialize();
+        registerDisplayController(dm);
     }
 
 }

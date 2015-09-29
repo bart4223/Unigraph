@@ -19,6 +19,8 @@ public class NGUG2DDiagramDisplayManager extends NGDisplayManager {
         addController(dc);
         dc = new NGUG2DTableObjectDisplayController(FCanvas);
         addController(dc);
+        dc = new NGUG2DBoxObjectDisplayController(FCanvas);
+        addController(dc);
         // Link-DC's
         dc = new NGUG2DSimpleLinkDisplayController(FCanvas);
         addController(dc);
@@ -56,12 +58,16 @@ public class NGUG2DDiagramDisplayManager extends NGDisplayManager {
     protected void InternalRender() {
         // Links
         for (NGUGCustomDiagramLinkLayout layout : FLinkLayouts) {
-            setCurrentController(getDiagramDisplayController(layout));
+            NGDisplayController dc = getDiagramDisplayController(layout);
+            dc.setProperty(dc, "DiagramLinkLayout", layout);
+            setCurrentController(dc);
             super.InternalRender();
         }
         // Objects
         for (NGUGCustomDiagramObjectLayout layout : FObjectLayouts) {
-            setCurrentController(getDiagramDisplayController(layout));
+            NGDisplayController dc = getDiagramDisplayController(layout);
+            dc.setProperty(dc, "DiagramObjectLayout", layout);
+            setCurrentController(dc);
             super.InternalRender();
         }
     }

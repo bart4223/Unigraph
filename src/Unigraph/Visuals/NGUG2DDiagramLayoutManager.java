@@ -3,6 +3,7 @@ package Unigraph.Visuals;
 import Unigraph.Base.*;
 import Uniwork.Base.NGComponent;
 
+import java.awt.geom.Arc2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -61,8 +62,8 @@ public class NGUG2DDiagramLayoutManager extends NGComponent {
         FEventListeners.remove(aListener);
     }
 
-    public NGUG2DDiagramLayer addLayer(String aName, Integer aZOrder) {
-        NGUG2DDiagramLayer res = new NGUG2DDiagramLayer(this, aName, aZOrder);
+    public NGUG2DDiagramLayer addLayer(String aName, Integer aZOrder, Double aOpacity) {
+        NGUG2DDiagramLayer res = new NGUG2DDiagramLayer(this, aName, aZOrder, aOpacity);
         FDiagramLayers.add(res);
         raiseLayerAddedEvent(res);
         return res;

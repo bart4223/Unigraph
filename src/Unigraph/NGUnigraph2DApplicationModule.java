@@ -43,8 +43,8 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     }
 
     @Override
-    public NGUG2DDiagramLayer addLayer(String aName, Integer aZOrder) {
-        return FLayoutManager.addLayer(aName, aZOrder);
+    public NGUG2DDiagramLayer addLayer(String aName, Integer aZOrder, Double aOpacity) {
+        return FLayoutManager.addLayer(aName, aZOrder, aOpacity);
     }
 
     @Override

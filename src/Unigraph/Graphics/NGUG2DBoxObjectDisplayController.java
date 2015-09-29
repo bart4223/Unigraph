@@ -1,7 +1,6 @@
 package Unigraph.Graphics;
 
 import Unigraph.Visuals.NGUG2DBoxDiagramObjectLayout;
-import Unigraph.Visuals.NGUG2DClassDiagramObjectLayout;
 import Uniwork.Visuals.NGDisplayController;
 import javafx.scene.canvas.Canvas;
 
@@ -10,8 +9,8 @@ public class NGUG2DBoxObjectDisplayController extends NGDisplayController implem
     @Override
     protected void DoRender() {
         super.DoRender();
-        fillRectangle(ClassLayout.getPosition().getXAsInt(), ClassLayout.getPosition().getYAsInt(), ClassLayout.getWidth(), ClassLayout.getHeight(), ClassLayout.getObjectColor());
-        drawRectangle(ClassLayout.getPosition().getXAsInt(), ClassLayout.getPosition().getYAsInt(), ClassLayout.getWidth(), ClassLayout.getHeight(), ClassLayout.getLineColor());
+        fillRectangle(DiagramObjectLayout.getPosition().getXAsInt(), DiagramObjectLayout.getPosition().getYAsInt(), DiagramObjectLayout.getWidth(), DiagramObjectLayout.getHeight(), DiagramObjectLayout.getObjectColor());
+        drawRectangle(DiagramObjectLayout.getPosition().getXAsInt(), DiagramObjectLayout.getPosition().getYAsInt(), DiagramObjectLayout.getWidth(), DiagramObjectLayout.getHeight(), DiagramObjectLayout.getLineColor());
     }
 
     public NGUG2DBoxObjectDisplayController(Canvas aCanvas) {
@@ -22,7 +21,7 @@ public class NGUG2DBoxObjectDisplayController extends NGDisplayController implem
         super(aCanvas, aName);
     }
 
-    public NGUG2DClassDiagramObjectLayout ClassLayout;
+    public NGUG2DBoxDiagramObjectLayout DiagramObjectLayout;
 
     @Override
     public Boolean SupportLayoutClass(Class aDiagramObjectLayoutClass) {

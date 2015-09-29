@@ -9,8 +9,8 @@ public class NGUG2DClassObjectDisplayController extends NGDisplayController impl
     @Override
     protected void DoRender() {
         super.DoRender();
-        fillRectangle(ClassLayout.getPosition().getXAsInt(), ClassLayout.getPosition().getYAsInt(), ClassLayout.getWidth(), ClassLayout.getHeight(), ClassLayout.getObjectColor());
-        drawRectangle(ClassLayout.getPosition().getXAsInt(), ClassLayout.getPosition().getYAsInt(), ClassLayout.getWidth(), ClassLayout.getHeight(), ClassLayout.getLineColor());
+        fillRectangle(DiagramObjectLayout.getPosition().getXAsInt(), DiagramObjectLayout.getPosition().getYAsInt(), DiagramObjectLayout.getWidth(), DiagramObjectLayout.getHeight(), DiagramObjectLayout.getObjectColor());
+        drawRectangle(DiagramObjectLayout.getPosition().getXAsInt(), DiagramObjectLayout.getPosition().getYAsInt(), DiagramObjectLayout.getWidth(), DiagramObjectLayout.getHeight(), DiagramObjectLayout.getLineColor());
     }
 
     public NGUG2DClassObjectDisplayController(Canvas aCanvas) {
@@ -21,7 +21,7 @@ public class NGUG2DClassObjectDisplayController extends NGDisplayController impl
         super(aCanvas, aName);
     }
 
-    public NGUG2DClassDiagramObjectLayout ClassLayout;
+    public NGUG2DClassDiagramObjectLayout DiagramObjectLayout;
 
     @Override
     public Boolean SupportLayoutClass(Class aDiagramObjectLayoutClass) {

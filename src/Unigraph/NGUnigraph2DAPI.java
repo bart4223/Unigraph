@@ -10,7 +10,7 @@ import Unigraph.Visuals.*;
 public interface NGUnigraph2DAPI {
 
     // Layers
-    NGUG2DDiagramLayer addLayer(String aName, Integer ZOrder);
+    NGUG2DDiagramLayer addLayer(String aName, Integer ZOrder, Double aOpacity);
 
     // Objects
     NGUGBoxDiagramObject addBox(String aName, Object aReference);

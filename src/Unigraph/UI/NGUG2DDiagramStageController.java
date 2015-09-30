@@ -89,7 +89,7 @@ public class NGUG2DDiagramStageController extends NGStageController {
         Canvas OverLayingCanvas = getOverlyingLayer(aDiagramLayer.getZOrder());
         Integer index = apLayer.getChildren().size() - 1;
         if (OverLayingCanvas != null)
-            index = FDiagramLayers.indexOf(OverLayingCanvas);
+            index = apLayer.getChildren().indexOf(OverLayingCanvas);
         apLayer.getChildren().add(index, canvas);
         NGUG2DDiagramDisplayManager dm = new NGUG2DDiagramDisplayManager(canvas, layername);
         dm.setView(FDisplayView);

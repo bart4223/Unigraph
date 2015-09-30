@@ -7,8 +7,11 @@ import javafx.scene.text.Font;
 
 public class NGUG2DBoxObjectDisplayController extends NGDisplayController implements NGUGDiagramDisplayController {
 
+    protected Integer FFontSize = 12;
+
     @Override
     protected void DoRender() {
+        // Frame
         int dx = DiagramObjectLayout.getWidth()/2;
         int dy = DiagramObjectLayout.getHeight()/2;
         int TLX = DiagramObjectLayout.getPosition().getXAsInt() - dx;
@@ -17,7 +20,8 @@ public class NGUG2DBoxObjectDisplayController extends NGDisplayController implem
         FGC.fillRect(TLX, TLY, DiagramObjectLayout.getWidth(), DiagramObjectLayout.getHeight());
         FGC.setStroke(DiagramObjectLayout.getLineColor());
         FGC.strokeRect(TLX, TLY, DiagramObjectLayout.getWidth(), DiagramObjectLayout.getHeight());
-        FGC.setFont(new Font("Arial", 12));
+        // Text
+        FGC.setFont(new Font("Arial", FFontSize));
         FGC.strokeText(DiagramObjectLayout.getDiagramObject().getName(), TLX + 20, TLY + 20);
     }
 

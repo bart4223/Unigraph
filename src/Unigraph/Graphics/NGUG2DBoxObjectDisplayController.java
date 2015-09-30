@@ -3,6 +3,7 @@ package Unigraph.Graphics;
 import Unigraph.Visuals.NGUG2DBoxDiagramObjectLayout;
 import Uniwork.Visuals.NGDisplayController;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.text.Font;
 
 public class NGUG2DBoxObjectDisplayController extends NGDisplayController implements NGUGDiagramDisplayController {
 
@@ -16,6 +17,8 @@ public class NGUG2DBoxObjectDisplayController extends NGDisplayController implem
         FGC.fillRect(TLX, TLY, DiagramObjectLayout.getWidth(), DiagramObjectLayout.getHeight());
         FGC.setStroke(DiagramObjectLayout.getLineColor());
         FGC.strokeRect(TLX, TLY, DiagramObjectLayout.getWidth(), DiagramObjectLayout.getHeight());
+        FGC.setFont(new Font("Arial", 12));
+        FGC.strokeText(DiagramObjectLayout.getDiagramObject().getName(), TLX + 20, TLY + 20);
     }
 
     public NGUG2DBoxObjectDisplayController(Canvas aCanvas) {

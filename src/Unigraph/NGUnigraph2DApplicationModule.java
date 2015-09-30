@@ -58,6 +58,11 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     }
 
     @Override
+    public NGUGBoxDiagramObject addBox(String aName) {
+        return addBox(aName, null);
+    }
+
+    @Override
     public NGUGBoxDiagramObject addBox(String aName, Object aReference) {
         NGUGBoxDiagramObject res = new NGUGBoxDiagramObject(aName, aReference);
         FObjectManager.addObject(res);
@@ -72,6 +77,11 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     }
 
     @Override
+    public NGUGClassDiagramObject addClass(String aName) {
+        return addClass(aName, null);
+    }
+
+    @Override
     public NGUGClassDiagramObject addClass(String aName, Object aReference) {
         NGUGClassDiagramObject res = new NGUGClassDiagramObject(aName, aReference);
         FObjectManager.addObject(res);
@@ -83,6 +93,11 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
         NGUG2DClassDiagramObjectLayout res = new NGUG2DClassDiagramObjectLayout(aClassObject, aDiagramLayer, aWidth, aHeight);
         FLayoutManager.addObjectLayout(res);
         return res;
+    }
+
+    @Override
+    public NGUGTableDiagramObject addTable(String aName) {
+        return addTable(aName, null);
     }
 
     @Override

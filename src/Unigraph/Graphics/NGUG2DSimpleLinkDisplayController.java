@@ -9,7 +9,6 @@ public class NGUG2DSimpleLinkDisplayController extends NGDisplayController imple
 
     @Override
     protected void DoRender() {
-        super.DoRender();
         NGUG2DDiagramObjectLayout fromObject = (NGUG2DDiagramObjectLayout)DiagramLinkLayout.getLayoutManager().getObjectLayout(DiagramLinkLayout.getDiagramLink().getFromObject());
         NGUG2DDiagramObjectLayout toObject = (NGUG2DDiagramObjectLayout)DiagramLinkLayout.getLayoutManager().getObjectLayout(DiagramLinkLayout.getDiagramLink().getToObject());
         drawLine(fromObject.getPosition().getXAsInt(), fromObject.getPosition().getYAsInt(), toObject.getPosition().getXAsInt(), toObject.getPosition().getYAsInt(), DiagramLinkLayout.getLineColor());

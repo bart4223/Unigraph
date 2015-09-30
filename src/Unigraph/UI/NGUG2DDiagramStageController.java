@@ -8,10 +8,7 @@ import Unigraph.Visuals.NGUG2DDiagramLayoutManager;
 import Unigraph.Visuals.NGUG2DDiagramLinkLayout;
 import Unigraph.Visuals.NGUG2DDiagramObjectLayout;
 import Uniwork.Appl.NGCustomStageItem;
-import Uniwork.Visuals.NGDisplayManager;
-import Uniwork.Visuals.NGDisplayView;
-import Uniwork.Visuals.NGGrid2DDisplayController;
-import Uniwork.Visuals.NGStageController;
+import Uniwork.Visuals.*;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.AnchorPane;
@@ -90,7 +87,7 @@ public class NGUG2DDiagramStageController extends NGStageController {
         canvas.setOpacity(aDiagramLayer.getOpacity());
         FDiagramLayers.add(new DiagramLayer(canvas, aDiagramLayer.getZOrder()));
         Canvas OverLayingCanvas = getOverlyingLayer(aDiagramLayer.getZOrder());
-        Integer index = apLayer.getChildren().size() - 2;
+        Integer index = apLayer.getChildren().size() - 1;
         if (OverLayingCanvas != null)
             index = FDiagramLayers.indexOf(OverLayingCanvas);
         apLayer.getChildren().add(index, canvas);
@@ -114,7 +111,6 @@ public class NGUG2DDiagramStageController extends NGStageController {
             String layername = getLayerName(layout.getDiagramLayerID());
             NGUG2DDiagramDisplayManager dm = (NGUG2DDiagramDisplayManager)getDisplayController(layername);
             dm.addObjectLayout(aDiagramObjectLayout);
-            RenderScene(dm);
         }
     }
 
@@ -129,7 +125,6 @@ public class NGUG2DDiagramStageController extends NGStageController {
             String layername = getLayerName(id);
             NGUG2DDiagramDisplayManager dm = (NGUG2DDiagramDisplayManager)getDisplayController(layername);
             dm.addLinkLayout(aDiagramLinkLayout);
-            RenderScene(dm);
         }
     }
 
@@ -137,6 +132,16 @@ public class NGUG2DDiagramStageController extends NGStageController {
         NGDisplayManager dm = CreateDiagramLayer(aDiagramLayer);
         dm.Initialize();
         registerDisplayController(dm);
+    }
+
+    public void RefreshDiagram() {
+        RenderScene();
+    }
+
+    public void RefreshDiagram(NGUG2DDiagramLayer aDiagramLayer) {
+        String layername = getLayerName(aDiagramLayer.getID());
+        NGDisplayController dc = getDisplayController(layername);
+        RenderScene(dc);
     }
 
 }

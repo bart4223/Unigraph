@@ -3,8 +3,8 @@ package Unigraph.Visuals;
 import Unigraph.Base.*;
 import Uniwork.Base.NGComponent;
 
-import java.awt.geom.Arc2D;
 import java.util.ArrayList;
+import java.util.EventObject;
 import java.util.Iterator;
 
 public class NGUG2DDiagramLayoutManager extends NGComponent {
@@ -20,6 +20,25 @@ public class NGUG2DDiagramLayoutManager extends NGComponent {
             if (listener instanceof NGUG2DDiagramLayoutEventListener) {
                 NGUG2DDiagramLayoutEventListener listenerLayer = (NGUG2DDiagramLayoutEventListener)listener;
                 listenerLayer.handleLayerAdded(event);
+            }
+        }
+    }
+
+    protected synchronized void raiseLayerRefreshEvent(NGUG2DDiagramLayer aDiagramLayer) {
+        NGUG2DDiagramLayerEvent event = new NGUG2DDiagramLayerEvent(this, aDiagramLayer);
+        for (NGUGDiagramLayoutEventListener listener : FEventListeners) {
+            if (listener instanceof NGUG2DDiagramLayoutEventListener) {
+                NGUG2DDiagramLayoutEventListener listenerLayer = (NGUG2DDiagramLayoutEventListener)listener;
+                listenerLayer.handleLayerRefresh(event);
+            }
+        }
+    }
+
+    protected synchronized void raiseRefreshEvent() {
+        for (NGUGDiagramLayoutEventListener listener : FEventListeners) {
+            if (listener instanceof NGUG2DDiagramLayoutEventListener) {
+                NGUG2DDiagramLayoutEventListener listenerLayer = (NGUG2DDiagramLayoutEventListener)listener;
+                listenerLayer.handleRefresh(new EventObject(this));
             }
         }
     }
@@ -93,6 +112,14 @@ public class NGUG2DDiagramLayoutManager extends NGComponent {
                 return layout;
         }
         return null;
+    }
+
+    public void Refresh() {
+        raiseRefreshEvent();
+    }
+
+    public void Refresh(NGUG2DDiagramLayer aDiagramLayer) {
+        raiseLayerRefreshEvent(aDiagramLayer);
     }
 
 }

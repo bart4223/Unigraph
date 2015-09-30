@@ -7,6 +7,8 @@ import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Appl.NGStageManager;
 import javafx.stage.Stage;
 
+import java.util.EventObject;
+
 public class NGUG2DDiagramStageItem extends NGCustomStageItem implements NGUGDiagramEventListener, NGUG2DDiagramLayoutEventListener {
 
     public NGUG2DDiagramStageItem(NGStageManager aStageManager, String aName, Stage aStage) {
@@ -36,6 +38,18 @@ public class NGUG2DDiagramStageItem extends NGCustomStageItem implements NGUGDia
     public void handleLinkLayoutAdded(NGUGDiagramLinkLayoutEvent e) {
         NGUG2DDiagramStageController sc = (NGUG2DDiagramStageController)FStageController;
         sc.addDiagramLinkLayout(e.getDiagramLinkLayout());
+    }
+
+    @Override
+    public void handleRefresh(EventObject e) {
+        NGUG2DDiagramStageController sc = (NGUG2DDiagramStageController)FStageController;
+        sc.RefreshDiagram();
+    }
+
+    @Override
+    public void handleLayerRefresh(NGUG2DDiagramLayerEvent e) {
+        NGUG2DDiagramStageController sc = (NGUG2DDiagramStageController)FStageController;
+        sc.RefreshDiagram(e.getDigramLayer());
     }
 
     @Override

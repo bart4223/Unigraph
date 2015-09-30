@@ -26,12 +26,6 @@ public class NGUG2DDiagramDisplayManager extends NGDisplayManager {
         addController(dc);
     }
 
-    @Override
-    protected void DoBeforeRender() {
-        super.DoBeforeRender();
-        FGC.clearRect(FPosition.getXAsInt() * FPixelSize, FPosition.getYAsInt() * FPixelSize, FWidth, FHeight);
-    }
-
     protected NGDisplayController getDiagramDisplayController(NGUGCustomDiagramObjectLayout aDiagramObjectLayout) {
         for (NGDisplayController dc : FControllers) {
             if (dc instanceof NGUGDiagramDisplayController) {
@@ -56,6 +50,7 @@ public class NGUG2DDiagramDisplayManager extends NGDisplayManager {
 
     @Override
     protected void InternalRender() {
+        FGC.clearRect(FPosition.getXAsInt() * FPixelSize, FPosition.getYAsInt() * FPixelSize, FWidth, FHeight);
         // Links
         for (NGUGCustomDiagramLinkLayout layout : FLinkLayouts) {
             NGDisplayController dc = getDiagramDisplayController(layout);

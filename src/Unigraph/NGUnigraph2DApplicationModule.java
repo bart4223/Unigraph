@@ -43,6 +43,16 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     }
 
     @Override
+    public void Refresh() {
+        FLayoutManager.Refresh();
+    }
+
+    @Override
+    public void Refresh(NGUG2DDiagramLayer aDiagramLayer) {
+        FLayoutManager.Refresh(aDiagramLayer);
+    }
+
+    @Override
     public NGUG2DDiagramLayer addLayer(String aName, Integer aZOrder, Double aOpacity) {
         return FLayoutManager.addLayer(aName, aZOrder, aOpacity);
     }

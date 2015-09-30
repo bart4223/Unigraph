@@ -9,6 +9,10 @@ import Unigraph.Visuals.*;
 
 public interface NGUnigraph2DAPI {
 
+    // Common
+    void Refresh();
+    void Refresh(NGUG2DDiagramLayer aDiagramLayer);
+
     // Layers
     NGUG2DDiagramLayer addLayer(String aName, Integer ZOrder, Double aOpacity);
 

@@ -32,8 +32,8 @@ public class NGUGClassDiagramObject extends NGUGCustomDiagramObject {
             return FMembers.iterator();
     }
 
-    public void addMember(String aField) {
-        FMembers.add(aField);
+    public void addMember(String aMember) {
+        FMembers.add(aMember);
     }
 
     public Iterator<String> getMethods() {

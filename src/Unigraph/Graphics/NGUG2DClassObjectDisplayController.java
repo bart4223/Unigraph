@@ -5,9 +5,13 @@ import Uniwork.Visuals.NGDisplayController;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.text.Font;
 
+import java.util.Iterator;
+
 public class NGUG2DClassObjectDisplayController extends NGDisplayController implements NGUGDiagramDisplayController {
 
     protected Integer FFontSize = 12;
+    protected Integer FFontSizeMember = 10;
+    protected Integer FFontSizeMethod = 10;
 
     @Override
     protected void DoRender() {
@@ -24,6 +28,25 @@ public class NGUG2DClassObjectDisplayController extends NGDisplayController impl
         // Text
         FGC.setFont(new Font("Arial", FFontSize));
         FGC.strokeText(DiagramObjectLayout.getDiagramObject().getName(), TLX + 20, TLY + 20);
+        // Members
+        Iterator<String> itr = DiagramObjectLayout.getClassDiagramObject().getMembers();
+        Integer y = 2 * 20 + FFontSize;
+        FGC.setStroke(DiagramObjectLayout.getLineColor().brighter());
+        FGC.setFont(new Font("Arial", FFontSizeMember));
+        while (itr.hasNext()) {
+            String member = itr.next();
+            FGC.strokeText(member, TLX + 20, TLY + y);
+            y = y + FFontSizeMember;
+        }
+        // Methods
+        itr = DiagramObjectLayout.getClassDiagramObject().getMethods();
+        FGC.setStroke(DiagramObjectLayout.getLineColor().brighter());
+        FGC.setFont(new Font("Arial", FFontSizeMethod));
+        while (itr.hasNext()) {
+            String member = itr.next();
+            FGC.strokeText(member, TLX + 20, TLY + y);
+            y = y + FFontSizeMethod;
+        }
     }
 
     public NGUG2DClassObjectDisplayController(Canvas aCanvas) {

@@ -1,10 +1,18 @@
 The Unigraph project provides a framework to visualize some digrams (like UML)...
 
+Configuration
+=============
+
+    DrawGrid            Draw Grid
+    AlternateGridColor  Alternate the grid color
+
 Objects
 =======
     
+    Box
     Table           
-    Object          
+    Object
+    SimpleLink
 
 
 Version History

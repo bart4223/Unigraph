@@ -58,6 +58,8 @@ public class NGUG2DDiagramStageController extends NGStageController {
         dcgrid.setView(FDisplayView);
         dcgrid.GridDistance = 20;
         dcgrid.GridColor = Color.DARKGRAY;
+        dcgrid.AlternateGridColor = getConfigurationPropertyAsBoolean("NGUnigraph2DApplicationModule.AlternateGridColor", false);
+        dcgrid.DrawGrid = getConfigurationPropertyAsBoolean("NGUnigraph2DApplicationModule.DrawGrid", true);
         registerDisplayController(dcgrid);
     }
 

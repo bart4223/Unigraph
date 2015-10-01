@@ -18,11 +18,12 @@ public class NGUG2DBoxObjectDisplayController extends NGDisplayController implem
         int TLY = DiagramObjectLayout.getPosition().getYAsInt() - dy;
         FGC.setFill(DiagramObjectLayout.getObjectColor());
         FGC.fillRect(TLX, TLY, DiagramObjectLayout.getWidth(), DiagramObjectLayout.getHeight());
+        FGC.setLineWidth(1.0);
         FGC.setStroke(DiagramObjectLayout.getLineColor());
         FGC.strokeRect(TLX, TLY, DiagramObjectLayout.getWidth(), DiagramObjectLayout.getHeight());
         // Text
         FGC.setFont(new Font("Arial", FFontSize));
-        FGC.strokeText(DiagramObjectLayout.getDiagramObject().getName(), TLX + 20, TLY + 20);
+        FGC.strokeText(DiagramObjectLayout.getDiagramObject().getName(), TLX + 10, TLY + 20);
     }
 
     public NGUG2DBoxObjectDisplayController(Canvas aCanvas) {

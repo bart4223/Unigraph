@@ -9,9 +9,18 @@ public class NGUG2DSimpleLinkDisplayController extends NGDisplayController imple
 
     @Override
     protected void DoRender() {
-        NGUG2DDiagramObjectLayout fromObject = (NGUG2DDiagramObjectLayout)DiagramLinkLayout.getLayoutManager().getObjectLayout(DiagramLinkLayout.getDiagramLink().getFromObject());
-        NGUG2DDiagramObjectLayout toObject = (NGUG2DDiagramObjectLayout)DiagramLinkLayout.getLayoutManager().getObjectLayout(DiagramLinkLayout.getDiagramLink().getToObject());
-        drawLine(fromObject.getPosition().getXAsInt(), fromObject.getPosition().getYAsInt(), toObject.getPosition().getXAsInt(), toObject.getPosition().getYAsInt(), DiagramLinkLayout.getLineColor());
+        FGC.beginPath();
+        try {
+            NGUG2DDiagramObjectLayout fromObject = (NGUG2DDiagramObjectLayout)DiagramLinkLayout.getLayoutManager().getObjectLayout(DiagramLinkLayout.getDiagramLink().getFromObject());
+            NGUG2DDiagramObjectLayout toObject = (NGUG2DDiagramObjectLayout)DiagramLinkLayout.getLayoutManager().getObjectLayout(DiagramLinkLayout.getDiagramLink().getToObject());
+            FGC.setStroke(DiagramLinkLayout.getLineColor());
+            FGC.setLineWidth(1.0);
+            FGC.moveTo(fromObject.getPosition().getXAsInt(), fromObject.getPosition().getYAsInt());
+            FGC.lineTo(toObject.getPosition().getXAsInt(), toObject.getPosition().getYAsInt());
+            FGC.stroke();
+        } finally {
+            FGC.closePath();
+        }
     }
 
     public NGUG2DSimpleLinkDisplayController(Canvas aCanvas) {

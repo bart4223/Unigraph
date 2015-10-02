@@ -1,10 +1,7 @@
 package Unigraph;
 
 import Unigraph.Base.NGUGCustomDiagramObject;
-import Unigraph.Objects.NGUGBoxDiagramObject;
-import Unigraph.Objects.NGUGClassDiagramObject;
-import Unigraph.Objects.NGUGSimpleDiagramLink;
-import Unigraph.Objects.NGUGTableDiagramObject;
+import Unigraph.Objects.*;
 import Unigraph.Visuals.*;
 
 public interface NGUnigraph2DAPI {
@@ -30,5 +27,7 @@ public interface NGUnigraph2DAPI {
     // Links
     NGUGSimpleDiagramLink addSimpleLink(NGUGCustomDiagramObject aFromObject, NGUGCustomDiagramObject aToObject);
     NGUG2DSimpleDiagramLinkLayout addSimpleLinkLayout(NGUGSimpleDiagramLink aDiagramLink);
+    NGUGLabeledDiagramLink addLabeledLink(NGUGCustomDiagramObject aFromObject, NGUGCustomDiagramObject aToObject, String aName);
+    NGUG2DLabeledDiagramLinkLayout addLabeledLinkLayout(NGUGLabeledDiagramLink aDiagramLink, Integer aWidth, Integer aHeight);
 
 }

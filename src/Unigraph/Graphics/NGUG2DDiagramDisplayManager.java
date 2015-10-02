@@ -24,6 +24,8 @@ public class NGUG2DDiagramDisplayManager extends NGDisplayManager {
         // Link-DC's
         dc = new NGUG2DSimpleLinkDisplayController(FCanvas);
         addController(dc);
+        dc = new NGUG2DLabeledLinkDisplayController(FCanvas);
+        addController(dc);
     }
 
     protected NGDisplayController getDiagramDisplayController(NGUGCustomDiagramObjectLayout aDiagramObjectLayout) {

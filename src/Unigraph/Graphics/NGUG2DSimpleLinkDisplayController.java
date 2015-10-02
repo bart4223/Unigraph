@@ -11,6 +11,7 @@ public class NGUG2DSimpleLinkDisplayController extends NGDisplayController imple
     protected void DoRender() {
         FGC.beginPath();
         try {
+            // Link
             NGUG2DDiagramObjectLayout fromObject = (NGUG2DDiagramObjectLayout)DiagramLinkLayout.getLayoutManager().getObjectLayout(DiagramLinkLayout.getDiagramLink().getFromObject());
             NGUG2DDiagramObjectLayout toObject = (NGUG2DDiagramObjectLayout)DiagramLinkLayout.getLayoutManager().getObjectLayout(DiagramLinkLayout.getDiagramLink().getToObject());
             FGC.setStroke(DiagramLinkLayout.getLineColor());

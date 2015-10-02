@@ -3,10 +3,7 @@ package Unigraph;
 import Unigraph.Base.NGUGCustomDiagramObject;
 import Unigraph.Base.NGUGDiagramEventListener;
 import Unigraph.Base.NGUGDiagramObjectManager;
-import Unigraph.Objects.NGUGBoxDiagramObject;
-import Unigraph.Objects.NGUGClassDiagramObject;
-import Unigraph.Objects.NGUGSimpleDiagramLink;
-import Unigraph.Objects.NGUGTableDiagramObject;
+import Unigraph.Objects.*;
 import Unigraph.Visuals.*;
 import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Appl.NGVisualApplicationModule;
@@ -124,6 +121,20 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     @Override
     public NGUG2DSimpleDiagramLinkLayout addSimpleLinkLayout(NGUGSimpleDiagramLink aDiagramLink) {
         NGUG2DSimpleDiagramLinkLayout res = new NGUG2DSimpleDiagramLinkLayout(FLayoutManager, aDiagramLink);
+        FLayoutManager.addLinkLayout(res);
+        return res;
+    }
+
+    @Override
+    public NGUGLabeledDiagramLink addLabeledLink(NGUGCustomDiagramObject aFromObject, NGUGCustomDiagramObject aToObject, String aName) {
+        NGUGLabeledDiagramLink res = new NGUGLabeledDiagramLink(aFromObject, aToObject, aName);
+        FObjectManager.addLink(res);
+        return res;
+    }
+
+    @Override
+    public NGUG2DLabeledDiagramLinkLayout addLabeledLinkLayout(NGUGLabeledDiagramLink aDiagramLink, Integer aWidth, Integer aHeight) {
+        NGUG2DLabeledDiagramLinkLayout res = new NGUG2DLabeledDiagramLinkLayout(FLayoutManager, aDiagramLink, aWidth, aHeight);
         FLayoutManager.addLinkLayout(res);
         return res;
     }

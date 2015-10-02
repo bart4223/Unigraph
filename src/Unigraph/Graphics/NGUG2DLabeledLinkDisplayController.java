@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 
 public class NGUG2DLabeledLinkDisplayController extends NGDisplayController implements NGUGDiagramDisplayController {
 
-    protected Integer FFontSize = 12;
+    protected Integer FFontSize = 10;
 
     @Override
     protected void DoRender() {
@@ -36,7 +36,7 @@ public class NGUG2DLabeledLinkDisplayController extends NGDisplayController impl
             FGC.fillRect(TLX, TLY, DiagramLinkLayout.getWidth(), DiagramLinkLayout.getHeight());
             FGC.strokeRect(TLX, TLY, DiagramLinkLayout.getWidth(), DiagramLinkLayout.getHeight());
             FGC.setFont(new Font("Arial", FFontSize));
-            FGC.strokeText(DiagramLinkLayout.getLabeledDiagramLink().getName(), x - DiagramLinkLayout.getWidth() / 2 + 5, y + 5);
+            FGC.strokeText(DiagramLinkLayout.getLabeledDiagramLink().getName(), x - DiagramLinkLayout.getWidth() / 2 + 4, y + 4);
         } finally {
             FGC.closePath();
         }

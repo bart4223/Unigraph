@@ -37,6 +37,7 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     public void setLogManager(NGLogManager aLogManager) {
         super.setLogManager(aLogManager);
         FObjectManager.setLogManager(aLogManager);
+        FLayoutManager.setLogManager(aLogManager);
     }
 
     @Override

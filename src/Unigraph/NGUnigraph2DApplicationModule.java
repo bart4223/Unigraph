@@ -56,6 +56,11 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     }
 
     @Override
+    public NGUGCustomDiagramObject getObjectByRef(Object aRefObject) {
+        return FObjectManager.getDiagramObjectByRef(aRefObject);
+    }
+
+    @Override
     public NGUGBoxDiagramObject addBox(String aName) {
         return addBox(aName, null);
     }
@@ -63,7 +68,7 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     @Override
     public NGUGBoxDiagramObject addBox(String aName, Object aReference) {
         NGUGBoxDiagramObject res = new NGUGBoxDiagramObject(aName, aReference);
-        FObjectManager.addObject(res);
+        FObjectManager.addDiagramObject(res);
         return res;
     }
 
@@ -82,7 +87,7 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     @Override
     public NGUGClassDiagramObject addClass(String aName, Object aReference) {
         NGUGClassDiagramObject res = new NGUGClassDiagramObject(aName, aReference);
-        FObjectManager.addObject(res);
+        FObjectManager.addDiagramObject(res);
         return res;
     }
 
@@ -101,7 +106,7 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     @Override
     public NGUGTableDiagramObject addTable(String aName, Object aReference) {
         NGUGTableDiagramObject res = new NGUGTableDiagramObject(aName, aReference);
-        FObjectManager.addObject(res);
+        FObjectManager.addDiagramObject(res);
         return res;
     }
 
@@ -115,7 +120,7 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     @Override
     public NGUGSimpleDiagramLink addSimpleLink(NGUGCustomDiagramObject aFromObject, NGUGCustomDiagramObject aToObject) {
         NGUGSimpleDiagramLink res = new NGUGSimpleDiagramLink(aFromObject, aToObject);
-        FObjectManager.addLink(res);
+        FObjectManager.addDiagramLink(res);
         return res;
     }
 
@@ -129,7 +134,7 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
     @Override
     public NGUGLabeledDiagramLink addLabeledLink(NGUGCustomDiagramObject aFromObject, NGUGCustomDiagramObject aToObject, String aName) {
         NGUGLabeledDiagramLink res = new NGUGLabeledDiagramLink(aFromObject, aToObject, aName);
-        FObjectManager.addLink(res);
+        FObjectManager.addDiagramLink(res);
         return res;
     }
 

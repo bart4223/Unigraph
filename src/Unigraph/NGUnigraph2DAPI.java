@@ -14,6 +14,7 @@ public interface NGUnigraph2DAPI {
     NGUG2DDiagramLayer addLayer(String aName, Integer ZOrder, Double aOpacity);
 
     // Objects
+    NGUGCustomDiagramObject getObjectByRef(Object aRefObject);
     NGUGBoxDiagramObject addBox(String aName);
     NGUGBoxDiagramObject addBox(String aName, Object aReference);
     NGUG2DBoxDiagramObjectLayout addBoxLayout(NGUGBoxDiagramObject aBoxObject, NGUG2DDiagramLayer aDiagramLayer, Integer aWidth, Integer aHeight);

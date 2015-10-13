@@ -49,13 +49,13 @@ public class NGUGDiagramObjectManager extends NGComponent {
         FEventListeners.remove(aListener);
     }
 
-    public void addObject(NGUGCustomDiagramObject aDiagramObject) {
+    public void addDiagramObject(NGUGCustomDiagramObject aDiagramObject) {
         FObjects.add(aDiagramObject);
         raiseObjectAddedEvent(aDiagramObject);
         writeInfo(NGUnigraphConsts.C_DEBUG_OBJECT_ADD, String.format("Diagram object %s [%s] added", aDiagramObject.getKind(), aDiagramObject.getName()));
     }
 
-    public void addLink(NGUGCustomDiagramLink aDiagramLink) {
+    public void addDiagramLink(NGUGCustomDiagramLink aDiagramLink) {
         FLinks.add(aDiagramLink);
         raiseLinkAddedEvent(aDiagramLink);
         writeInfo(NGUnigraphConsts.C_DEBUG_OBJECT_ADD, String.format("Diagram link %s added", aDiagramLink.getKind()));
@@ -64,6 +64,14 @@ public class NGUGDiagramObjectManager extends NGComponent {
     public NGUGCustomDiagramObject getDiagramObjectByID(String aID) {
         for (NGUGCustomDiagramObject obj : FObjects) {
             if (obj.getID().equals(aID))
+                return obj;
+        }
+        return null;
+    }
+
+    public NGUGCustomDiagramObject getDiagramObjectByRef(Object aRefObject) {
+        for (NGUGCustomDiagramObject obj : FObjects) {
+            if (obj.getReference().equals(aRefObject))
                 return obj;
         }
         return null;

@@ -24,10 +24,7 @@ public class NGUGTableDiagramObject extends NGUGCustomDiagramObject {
     }
 
     public Iterator<String> getFields() {
-        if (FReference != null)
-            return null;
-        else
-            return FFields.iterator();
+        return FFields.iterator();
     }
 
     public void addField(String aField) {

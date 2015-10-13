@@ -26,10 +26,7 @@ public class NGUGClassDiagramObject extends NGUGCustomDiagramObject {
     }
 
     public Iterator<String> getMembers() {
-        if (FReference != null)
-            return null;
-        else
-            return FMembers.iterator();
+        return FMembers.iterator();
     }
 
     public void addMember(String aMember) {
@@ -37,10 +34,7 @@ public class NGUGClassDiagramObject extends NGUGCustomDiagramObject {
     }
 
     public Iterator<String> getMethods() {
-        if (FReference != null)
-            return null;
-        else
-            return FMethods.iterator();
+        return FMethods.iterator();
     }
 
     public void addMethod(String aMethod) {

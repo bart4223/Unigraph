@@ -14,16 +14,14 @@ public class NGTestRunner {
 
     public static void main(String[] args) {
         FLogListener = new NGTeamcityLogEventListener();
-        Logger = new NGLogManager();
-        Logger.addEventListener(FLogListener);
-        Logger.writeLog("message text='Test run started...'");
+        Uniwork.Test.NGTestRunner.Logger = new NGLogManager();
+        Uniwork.Test.NGTestRunner.Logger.addEventListener(FLogListener);
+        Uniwork.Test.NGTestRunner.Logger.writeLog("message text='Test run started...'");
         Result result = JUnitCore.runClasses(NGAllTestUnits.class);
         for (Failure failure : result.getFailures()) {
-            Logger.writeLog(String.format("message text='Error' errorDetails='%s'", failure.toString()));
+            Uniwork.Test.NGTestRunner.Logger.writeLog(String.format("message text='Error' errorDetails='%s'", failure.toString()));
         }
-        Logger.writeLog("message text='Test run finished!'");
+        Uniwork.Test.NGTestRunner.Logger.writeLog("message text='Test run finished!'");
     }
-
-    public static NGLogManager Logger;
 
 }

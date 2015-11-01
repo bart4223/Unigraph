@@ -75,4 +75,8 @@ public class NGUG2DDiagramObjectLayout extends NGUGCustomDiagramObjectLayout {
         return FDiagramLayer.getZOrder();
     }
 
+    public Boolean Hit(NGPoint2D aPoint) {
+        return (FPosition.getX() - getWidth() / 2 < aPoint.getX() && aPoint.getX() < FPosition.getX() + getWidth() / 2 && FPosition.getY() - getHeight() / 2 < aPoint.getY() && aPoint.getY() < FPosition.getY() + getHeight() / 2);
+    }
+
 }

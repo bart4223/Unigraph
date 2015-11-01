@@ -1,6 +1,7 @@
 package Unigraph.UI;
 
 import Unigraph.Base.NGUGCustomDiagramLinkLayout;
+import Unigraph.Base.NGUGCustomDiagramObject;
 import Unigraph.Base.NGUGCustomDiagramObjectLayout;
 import Unigraph.Graphics.NGUG2DDiagramDisplayManager;
 import Unigraph.Visuals.NGUG2DDiagramLayer;
@@ -8,9 +9,12 @@ import Unigraph.Visuals.NGUG2DDiagramLayoutManager;
 import Unigraph.Visuals.NGUG2DDiagramLinkLayout;
 import Unigraph.Visuals.NGUG2DDiagramObjectLayout;
 import Uniwork.Appl.NGCustomStageItem;
+import Uniwork.Graphics.NGPoint2D;
 import Uniwork.Visuals.*;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
@@ -49,6 +53,7 @@ public class NGUG2DDiagramStageController extends NGStageController {
 
     protected ArrayList<DiagramLayer> FDiagramLayers;
     protected NGDisplayView FDisplayView;
+    protected NGUG2DDiagramLayoutManager FLayoutManager;
 
     @Override
     protected void CreateDisplayController() {
@@ -61,6 +66,30 @@ public class NGUG2DDiagramStageController extends NGStageController {
         dcgrid.AlternateGridColor = getConfigurationPropertyAsBoolean("NGUnigraph2DApplicationModule.AlternateGridColor", false);
         dcgrid.DrawGrid = getConfigurationPropertyAsBoolean("NGUnigraph2DApplicationModule.DrawGrid", true);
         registerDisplayController(dcgrid);
+    }
+
+    @Override
+    protected void DoInitialize() {
+        super.DoInitialize();
+        LayerTop.addEventHandler(MouseEvent.MOUSE_PRESSED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent t) {
+                        HandleMousePressed(t);
+                    }
+                });
+    }
+
+    protected void HandleMousePressed(MouseEvent t) {
+        switch (t.getButton()) {
+            case PRIMARY:
+                NGUGCustomDiagramObject obj = FLayoutManager.getDiagramObject(new NGPoint2D(t.getX(), t.getY()));
+                if (obj != null)
+                    System.out.println(obj.getName());
+                else
+                    System.out.println("Nix");
+                break;
+        }
     }
 
     protected Canvas getOverlyingLayer(Integer aZOrder) {
@@ -131,6 +160,7 @@ public class NGUG2DDiagramStageController extends NGStageController {
     }
 
     public void addDiagramLayer(NGUG2DDiagramLayer aDiagramLayer) {
+        FLayoutManager = aDiagramLayer.getLayoutManager();
         NGDisplayManager dm = CreateDiagramLayer(aDiagramLayer);
         dm.Initialize();
         registerDisplayController(dm);

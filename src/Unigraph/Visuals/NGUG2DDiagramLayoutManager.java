@@ -2,6 +2,7 @@ package Unigraph.Visuals;
 
 import Unigraph.Base.*;
 import Uniwork.Base.NGComponent;
+import Uniwork.Graphics.NGPoint2D;
 
 import java.util.ArrayList;
 import java.util.EventObject;
@@ -120,6 +121,22 @@ public class NGUG2DDiagramLayoutManager extends NGComponent {
 
     public void Refresh(NGUG2DDiagramLayer aDiagramLayer) {
         raiseLayerRefreshEvent(aDiagramLayer);
+    }
+
+    public NGUGCustomDiagramObject getDiagramObject(NGPoint2D aPosition) {
+        NGUG2DDiagramObjectLayout res = null;
+        for (NGUGCustomDiagramObjectLayout layout : FObjectLayouts) {
+            if (layout instanceof NGUG2DDiagramObjectLayout) {
+                NGUG2DDiagramObjectLayout layout1 = (NGUG2DDiagramObjectLayout)layout;
+                if (layout1.Hit(aPosition) && ((res == null) || layout1.getDiagramLayerZOrder() > res.getDiagramLayerZOrder())) {
+                    res = layout1;
+                }
+            }
+        }
+        if (res != null)
+            return res.getDiagramObject();
+        else
+            return null;
     }
 
 }

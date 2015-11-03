@@ -1,6 +1,6 @@
 package Unigraph.Test.Units;
 
-import Unigraph.Objects.NGUGBoxDiagramObject;
+import Unigraph.Objects.NGUGClassDiagramObject;
 import Uniwork.Test.NGCustomTestUnit;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class NGUGBoxDiagramObjectTestUnit extends NGCustomTestUnit {
+public class NGUGClassDiagramObjectTest extends NGCustomTestUnit {
 
     @BeforeClass
     public static void beforeSuite() {
@@ -21,10 +21,10 @@ public class NGUGBoxDiagramObjectTestUnit extends NGCustomTestUnit {
     }
 
     @Test
-    public void testBox01() throws Exception {
+    public void testClass01() throws Exception {
         StartTest();
-        NGUGBoxDiagramObject obj = new NGUGBoxDiagramObject("Box");
-        assertEquals("Box", obj.getName());
+        NGUGClassDiagramObject obj = new NGUGClassDiagramObject("Class");
+        assertEquals("Class", obj.getName());
         FinishTest();
     }
 

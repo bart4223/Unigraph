@@ -1,14 +1,14 @@
 package Unigraph.Test.Units;
 
-import Unigraph.Objects.NGUGBoxDiagramObject;
+import Unigraph.Objects.NGUGTableDiagramObject;
 import Uniwork.Test.NGCustomTestUnit;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class NGUGBoxDiagramObjectTestUnit extends NGCustomTestUnit {
+public class NGUGTableDiagramObjectTest extends NGCustomTestUnit {
 
     @BeforeClass
     public static void beforeSuite() {
@@ -21,10 +21,10 @@ public class NGUGBoxDiagramObjectTestUnit extends NGCustomTestUnit {
     }
 
     @Test
-    public void testBox01() throws Exception {
+    public void testTable01() throws Exception {
         StartTest();
-        NGUGBoxDiagramObject obj = new NGUGBoxDiagramObject("Box");
-        assertEquals("Box", obj.getName());
+        NGUGTableDiagramObject obj = new NGUGTableDiagramObject("Table");
+        assertEquals("Table", obj.getName());
         FinishTest();
     }
 

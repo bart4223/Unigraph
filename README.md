@@ -23,4 +23,5 @@ Version History
     27.09.2015      UI implemented
     30.09.2015      First diagram usage
     01.11.2015      Build tests
+    04.11.2015      First interaction (move position)
 

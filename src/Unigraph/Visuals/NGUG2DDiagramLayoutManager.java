@@ -51,6 +51,13 @@ public class NGUG2DDiagramLayoutManager extends NGComponent {
         }
     }
 
+    protected synchronized void raiseObjectLayoutChangedEvent(NGUGCustomDiagramObjectLayout aDiagramObjectLayout) {
+        NGUGDiagramObjectLayoutEvent event = new NGUGDiagramObjectLayoutEvent(this, aDiagramObjectLayout);
+        for (NGUGDiagramLayoutEventListener listener : FEventListeners) {
+            listener.handleObjectLayoutChanged(event);
+        }
+    }
+
     protected synchronized void raiseLinkLayoutAddedEvent(NGUGCustomDiagramLinkLayout aDiagramLinkLayout) {
         NGUGDiagramLinkLayoutEvent event = new NGUGDiagramLinkLayoutEvent(this, aDiagramLinkLayout);
         for (NGUGDiagramLayoutEventListener listener : FEventListeners) {
@@ -107,6 +114,22 @@ public class NGUG2DDiagramLayoutManager extends NGComponent {
         return null;
     }
 
+    public NGUG2DDiagramObjectLayout getObjectLayout(NGPoint2D aPosition) {
+        NGUG2DDiagramObjectLayout res = null;
+        for (NGUGCustomDiagramObjectLayout layout : FObjectLayouts) {
+            if (layout instanceof NGUG2DDiagramObjectLayout) {
+                NGUG2DDiagramObjectLayout layout1 = (NGUG2DDiagramObjectLayout)layout;
+                if (layout1.Hit(aPosition) && ((res == null) || layout1.getDiagramLayerZOrder() > res.getDiagramLayerZOrder())) {
+                    res = layout1;
+                }
+            }
+        }
+        if (res != null)
+            return res;
+        else
+            return null;
+    }
+
     public NGUGCustomDiagramLinkLayout getLinkLayout(NGUGCustomDiagramLink aDiagramLink) {
         for (NGUGCustomDiagramLinkLayout layout : FLinkLayouts) {
             if (layout.getDiagramLink().equals(aDiagramLink))
@@ -123,20 +146,9 @@ public class NGUG2DDiagramLayoutManager extends NGComponent {
         raiseLayerRefreshEvent(aDiagramLayer);
     }
 
-    public NGUGCustomDiagramObject getDiagramObject(NGPoint2D aPosition) {
-        NGUG2DDiagramObjectLayout res = null;
-        for (NGUGCustomDiagramObjectLayout layout : FObjectLayouts) {
-            if (layout instanceof NGUG2DDiagramObjectLayout) {
-                NGUG2DDiagramObjectLayout layout1 = (NGUG2DDiagramObjectLayout)layout;
-                if (layout1.Hit(aPosition) && ((res == null) || layout1.getDiagramLayerZOrder() > res.getDiagramLayerZOrder())) {
-                    res = layout1;
-                }
-            }
-        }
-        if (res != null)
-            return res.getDiagramObject();
-        else
-            return null;
+    public void setObjectPosition(NGUG2DDiagramObjectLayout aObjectLayout, Double aX, Double aY) {
+        aObjectLayout.setPosition(aX, aY);
+        raiseObjectLayoutChangedEvent(aObjectLayout);
     }
 
 }

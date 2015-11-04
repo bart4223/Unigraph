@@ -1,7 +1,6 @@
 package Unigraph.UI;
 
 import Unigraph.Base.NGUGCustomDiagramLinkLayout;
-import Unigraph.Base.NGUGCustomDiagramObject;
 import Unigraph.Base.NGUGCustomDiagramObjectLayout;
 import Unigraph.Graphics.NGUG2DDiagramDisplayManager;
 import Unigraph.Visuals.NGUG2DDiagramLayer;
@@ -21,6 +20,8 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
 public class NGUG2DDiagramStageController extends NGStageController {
+
+    protected Double FGridDistance;
 
     protected class DiagramLayer {
 
@@ -54,6 +55,8 @@ public class NGUG2DDiagramStageController extends NGStageController {
     protected ArrayList<DiagramLayer> FDiagramLayers;
     protected NGDisplayView FDisplayView;
     protected NGUG2DDiagramLayoutManager FLayoutManager;
+    protected NGUG2DDiagramObjectLayout FCurrentLO;
+    protected NGPoint2D FCurrentPos;
 
     @Override
     protected void CreateDisplayController() {
@@ -61,7 +64,7 @@ public class NGUG2DDiagramStageController extends NGStageController {
         FDisplayView = new NGDisplayView(Layer0.getWidth(), Layer0.getHeight());
         NGGrid2DDisplayController dcgrid = new NGGrid2DDisplayController(Layer0, "Grid");
         dcgrid.setView(FDisplayView);
-        dcgrid.GridDistance = 20;
+        dcgrid.GridDistance = FGridDistance.intValue();
         dcgrid.GridColor = Color.DARKGRAY;
         dcgrid.AlternateGridColor = getConfigurationPropertyAsBoolean("NGUnigraph2DApplicationModule.AlternateGridColor", false);
         dcgrid.DrawGrid = getConfigurationPropertyAsBoolean("NGUnigraph2DApplicationModule.DrawGrid", true);
@@ -78,17 +81,55 @@ public class NGUG2DDiagramStageController extends NGStageController {
                         HandleMousePressed(t);
                     }
                 });
+        LayerTop.addEventHandler(MouseEvent.MOUSE_RELEASED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent t) {
+                        HandleMouseReleased(t);
+                    }
+                });
+        LayerTop.addEventHandler(MouseEvent.MOUSE_DRAGGED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent t) {
+                        HandleMouseDragged(t);
+                    }
+                });
     }
 
     protected void HandleMousePressed(MouseEvent t) {
+        FCurrentPos.setX(t.getX());
+        FCurrentPos.setY(t.getY());
         switch (t.getButton()) {
             case PRIMARY:
-                NGUGCustomDiagramObject obj = FLayoutManager.getDiagramObject(new NGPoint2D(t.getX(), t.getY()));
-                if (obj != null)
-                    System.out.println(obj.getName());
-                else
-                    System.out.println("Nix");
+                FCurrentLO = FLayoutManager.getObjectLayout(FCurrentPos);
                 break;
+        }
+    }
+
+    protected void HandleMouseReleased(MouseEvent t) {
+        switch (t.getButton()) {
+            case PRIMARY:
+                FCurrentLO = null;
+                break;
+        }
+    }
+
+    protected void HandleMouseDragged(MouseEvent t) {
+        if (FCurrentLO != null) {
+            Double dx = t.getX() - FCurrentPos.getX();
+            Double dy = t.getY() - FCurrentPos.getY();
+            if (dx >= FGridDistance || dx <= -FGridDistance || dy >= FGridDistance || dy <= -FGridDistance) {
+                Double x = FCurrentLO.getPosition().getX() + dx;
+                Integer xx = (int)(x / FGridDistance);
+                Double x2 = xx * FGridDistance;
+                Double y = FCurrentLO.getPosition().getY() + dy;
+                Integer yy = (int)(y / FGridDistance);
+                Double y2 = yy * FGridDistance;
+                FLayoutManager.setObjectPosition(FCurrentLO, x2, y2);
+                FCurrentPos.setX(t.getX() + (x2 - x));
+                FCurrentPos.setY(t.getY() + (y2 - y));
+            }
         }
     }
 
@@ -134,6 +175,8 @@ public class NGUG2DDiagramStageController extends NGStageController {
     public NGUG2DDiagramStageController(NGCustomStageItem aStageItem) {
         super(aStageItem);
         FDiagramLayers = new ArrayList<>();
+        FCurrentPos = new NGPoint2D(0, 0);
+        FGridDistance = 20.0;
     }
 
     public void addDiagramObjectLayout(NGUGCustomDiagramObjectLayout aDiagramObjectLayout) {

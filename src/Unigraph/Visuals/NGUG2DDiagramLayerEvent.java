@@ -11,7 +11,7 @@ public class NGUG2DDiagramLayerEvent extends EventObject {
         FDiagramLayer = aDiagramLayer;
     }
 
-    public NGUG2DDiagramLayer getDigramLayer() {
+    public NGUG2DDiagramLayer getDiagramLayer() {
         return FDiagramLayer;
     }
 

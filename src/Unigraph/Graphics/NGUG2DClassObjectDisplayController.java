@@ -3,6 +3,7 @@ package Unigraph.Graphics;
 import Unigraph.Visuals.NGUG2DClassDiagramObjectLayout;
 import Uniwork.Visuals.NGDisplayController;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.util.Iterator;
@@ -12,6 +13,7 @@ public class NGUG2DClassObjectDisplayController extends NGDisplayController impl
     protected Integer FFontSize = 12;
     protected Integer FFontSizeMember = 10;
     protected Integer FFontSizeMethod = 10;
+    protected Integer FSelectSize = 1;
 
     @Override
     protected void DoRender() {
@@ -51,6 +53,12 @@ public class NGUG2DClassObjectDisplayController extends NGDisplayController impl
                 String member = itr.next();
                 FGC.strokeText(member, TLX + 10, TLY + y);
                 y = y + FFontSizeMethod;
+            }
+            // Selection
+            if (DiagramObjectLayout.getIsSelected()) {
+                FGC.setLineWidth(FSelectSize);
+                FGC.setStroke(Color.MAGENTA);
+                FGC.strokeRect(TLX - FSelectSize, TLY - FSelectSize, DiagramObjectLayout.getWidth() + FSelectSize * 2, DiagramObjectLayout.getHeight() + FSelectSize * 2);
             }
         } finally {
             FGC.closePath();

@@ -21,7 +21,12 @@ public class NGUG2DDiagramStageItem extends NGCustomStageItem implements NGUGDia
 
     @Override
     public void handleObjectAdded(NGUGDiagramObjectEvent e) {
+    }
 
+    @Override
+    public void handleObjectSelectionChanged(NGUGDiagramObjectEvent e) {
+        NGUG2DDiagramStageController sc = (NGUG2DDiagramStageController)FStageController;
+        sc.RefreshDiagramObject(e.getDiagramObject());
     }
 
     @Override

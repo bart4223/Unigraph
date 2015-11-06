@@ -11,11 +11,19 @@ public class NGUGDiagramObjectManager extends NGComponent {
     protected ArrayList<NGUGCustomDiagramObject> FObjects;
     protected ArrayList<NGUGCustomDiagramLink> FLinks;
     protected ArrayList<NGUGDiagramEventListener> FEventListeners;
+    protected ArrayList<NGUGCustomDiagramObject> FSelectedObjects;
 
     protected synchronized void raiseObjectAddedEvent(NGUGCustomDiagramObject aDiagramObject) {
         NGUGDiagramObjectEvent event = new NGUGDiagramObjectEvent(this, aDiagramObject);
         for (NGUGDiagramEventListener listener : FEventListeners) {
             listener.handleObjectAdded(event);
+        }
+    }
+
+    protected synchronized void raiseObjectSelectionChangedEvent(NGUGCustomDiagramObject aDiagramObject) {
+        NGUGDiagramObjectEvent event = new NGUGDiagramObjectEvent(this, aDiagramObject);
+        for (NGUGDiagramEventListener listener : FEventListeners) {
+            listener.handleObjectSelectionChanged(event);
         }
     }
 
@@ -31,6 +39,7 @@ public class NGUGDiagramObjectManager extends NGComponent {
         FObjects = new ArrayList<>();
         FLinks = new ArrayList<>();
         FEventListeners = new ArrayList<>();
+        FSelectedObjects = new ArrayList<>();
     }
 
     public Iterator<NGUGCustomDiagramObject> getObjects() {
@@ -39,6 +48,10 @@ public class NGUGDiagramObjectManager extends NGComponent {
 
     public Iterator<NGUGCustomDiagramLink> getLinks() {
         return FLinks.iterator();
+    }
+
+    public Iterator<NGUGCustomDiagramObject> getSelectedObjects() {
+        return FSelectedObjects.iterator();
     }
 
     public void addEventListener(NGUGDiagramEventListener aListener)  {
@@ -75,6 +88,49 @@ public class NGUGDiagramObjectManager extends NGComponent {
                 return obj;
         }
         return null;
+    }
+
+    public Boolean IsDiagramObjectSelected(NGUGCustomDiagramObject aDiagramObject) {
+        Boolean res = false;
+        for (NGUGCustomDiagramObject sel : FSelectedObjects) {
+            res = sel.equals(aDiagramObject);
+            if (res)
+                return res;
+        }
+        return res;
+    }
+
+    public void SelectDiagramObject(NGUGCustomDiagramObject aDiagramObject) {
+        if (!IsDiagramObjectSelected(aDiagramObject)) {
+            aDiagramObject.setIsSelected(true);
+            FSelectedObjects.add(aDiagramObject);
+            raiseObjectSelectionChangedEvent(aDiagramObject);
+        }
+    }
+
+    public void UnselectDiagramObject(NGUGCustomDiagramObject aDiagramObject) {
+        if (IsDiagramObjectSelected(aDiagramObject)) {
+            aDiagramObject.setIsSelected(false);
+            FSelectedObjects.remove(aDiagramObject);
+            raiseObjectSelectionChangedEvent(aDiagramObject);
+        }
+    }
+
+    public void ToggleDiagramObjectSelection(NGUGCustomDiagramObject aDiagramObject) {
+        if (IsDiagramObjectSelected(aDiagramObject))
+            UnselectDiagramObject(aDiagramObject);
+        else
+            SelectDiagramObject(aDiagramObject);
+    }
+
+    public void SelectAllDiagramObjects() {
+        for (NGUGCustomDiagramObject object : FObjects)
+            SelectDiagramObject(object);
+    }
+
+    public void UnselectAllDiagramObjects() {
+        for (NGUGCustomDiagramObject object : FObjects)
+            UnselectDiagramObject(object);
     }
 
 }

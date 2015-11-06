@@ -1,6 +1,7 @@
 package Unigraph.UI;
 
 import Unigraph.Base.NGUGCustomDiagramLinkLayout;
+import Unigraph.Base.NGUGCustomDiagramObject;
 import Unigraph.Base.NGUGCustomDiagramObjectLayout;
 import Unigraph.Graphics.NGUG2DDiagramDisplayManager;
 import Unigraph.Visuals.NGUG2DDiagramLayer;
@@ -16,12 +17,14 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import sun.plugin.javascript.navig4.Layer;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class NGUG2DDiagramStageController extends NGStageController {
 
-    protected Double FGridDistance;
+    protected Integer FGridDistance;
 
     protected class DiagramLayer {
 
@@ -55,7 +58,6 @@ public class NGUG2DDiagramStageController extends NGStageController {
     protected ArrayList<DiagramLayer> FDiagramLayers;
     protected NGDisplayView FDisplayView;
     protected NGUG2DDiagramLayoutManager FLayoutManager;
-    protected NGUG2DDiagramObjectLayout FCurrentLO;
     protected NGPoint2D FCurrentPos;
 
     @Override
@@ -64,7 +66,7 @@ public class NGUG2DDiagramStageController extends NGStageController {
         FDisplayView = new NGDisplayView(Layer0.getWidth(), Layer0.getHeight());
         NGGrid2DDisplayController dcgrid = new NGGrid2DDisplayController(Layer0, "Grid");
         dcgrid.setView(FDisplayView);
-        dcgrid.GridDistance = FGridDistance.intValue();
+        dcgrid.GridDistance = FGridDistance;
         dcgrid.GridColor = Color.DARKGRAY;
         dcgrid.AlternateGridColor = getConfigurationPropertyAsBoolean("NGUnigraph2DApplicationModule.AlternateGridColor", false);
         dcgrid.DrawGrid = getConfigurationPropertyAsBoolean("NGUnigraph2DApplicationModule.DrawGrid", true);
@@ -102,7 +104,14 @@ public class NGUG2DDiagramStageController extends NGStageController {
         FCurrentPos.setY(t.getY());
         switch (t.getButton()) {
             case PRIMARY:
-                FCurrentLO = FLayoutManager.getObjectLayout(FCurrentPos);
+                NGUG2DDiagramObjectLayout layout = FLayoutManager.getObjectLayout(FCurrentPos);
+                if (layout != null) {
+                    if (!t.isShiftDown())
+                        FLayoutManager.UnselectAllObjects();
+                    FLayoutManager.ToggleObjectSelection(layout);
+                }
+                else if (!t.isShiftDown())
+                    FLayoutManager.UnselectAllObjects();
                 break;
         }
     }
@@ -110,26 +119,37 @@ public class NGUG2DDiagramStageController extends NGStageController {
     protected void HandleMouseReleased(MouseEvent t) {
         switch (t.getButton()) {
             case PRIMARY:
-                FCurrentLO = null;
                 break;
         }
     }
 
     protected void HandleMouseDragged(MouseEvent t) {
-        if (FCurrentLO != null) {
+        Iterator<NGUG2DDiagramObjectLayout> itr = FLayoutManager.getSelectedObjects();
+        Integer i = 0;
+        double dX = 0.0;
+        double dY = 0.0;
+        while (itr.hasNext()) {
+            NGUG2DDiagramObjectLayout layout = itr.next();
             Double dx = t.getX() - FCurrentPos.getX();
             Double dy = t.getY() - FCurrentPos.getY();
             if (dx >= FGridDistance || dx <= -FGridDistance || dy >= FGridDistance || dy <= -FGridDistance) {
-                Double x = FCurrentLO.getPosition().getX() + dx;
+                Double x = layout.getPosition().getX() + dx;
                 Integer xx = (int)(x / FGridDistance);
-                Double x2 = xx * FGridDistance;
-                Double y = FCurrentLO.getPosition().getY() + dy;
+                Double x2 = xx * FGridDistance.doubleValue();
+                Double y = layout.getPosition().getY() + dy;
                 Integer yy = (int)(y / FGridDistance);
-                Double y2 = yy * FGridDistance;
-                FLayoutManager.setObjectPosition(FCurrentLO, x2, y2);
-                FCurrentPos.setX(t.getX() + (x2 - x));
-                FCurrentPos.setY(t.getY() + (y2 - y));
+                Double y2 = yy * FGridDistance.doubleValue();
+                FLayoutManager.setObjectPosition(layout, x2, y2);
+                if (i == 0) {
+                    dX = x2 - x;
+                    dY = y2 - y;
+                    i++;
+                }
             }
+        }
+        if (i == 1) {
+            FCurrentPos.setX(t.getX() + dX);
+            FCurrentPos.setY(t.getY() + dY);
         }
     }
 
@@ -176,7 +196,7 @@ public class NGUG2DDiagramStageController extends NGStageController {
         super(aStageItem);
         FDiagramLayers = new ArrayList<>();
         FCurrentPos = new NGPoint2D(0, 0);
-        FGridDistance = 20.0;
+        FGridDistance = getConfigurationPropertyAsInteger("NGUnigraph2DApplicationModule.GridDistance", 20);
     }
 
     public void addDiagramObjectLayout(NGUGCustomDiagramObjectLayout aDiagramObjectLayout) {
@@ -217,6 +237,11 @@ public class NGUG2DDiagramStageController extends NGStageController {
         String layername = getLayerName(aDiagramLayer.getID());
         NGDisplayController dc = getDisplayController(layername);
         RenderScene(dc);
+    }
+
+    public void RefreshDiagramObject(NGUGCustomDiagramObject aDiagramObject) {
+        NGUG2DDiagramObjectLayout layout = (NGUG2DDiagramObjectLayout)FLayoutManager.getObjectLayout(aDiagramObject);
+        RefreshDiagram(layout.getDiagramLayer());
     }
 
 }

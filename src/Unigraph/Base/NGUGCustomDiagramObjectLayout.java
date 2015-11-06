@@ -15,4 +15,8 @@ public abstract class NGUGCustomDiagramObjectLayout extends NGObject {
         return FDiagramObject;
     }
 
+    public Boolean getIsSelected() {
+        return FDiagramObject.getIsSelected();
+    }
+
 }

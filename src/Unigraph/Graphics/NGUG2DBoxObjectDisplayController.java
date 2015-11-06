@@ -3,11 +3,13 @@ package Unigraph.Graphics;
 import Unigraph.Visuals.NGUG2DBoxDiagramObjectLayout;
 import Uniwork.Visuals.NGDisplayController;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class NGUG2DBoxObjectDisplayController extends NGDisplayController implements NGUGDiagramDisplayController {
 
     protected Integer FFontSize = 12;
+    protected Integer FSelectSize = 1;
 
     @Override
     protected void DoRender() {
@@ -24,6 +26,12 @@ public class NGUG2DBoxObjectDisplayController extends NGDisplayController implem
         // Text
         FGC.setFont(new Font("Arial", FFontSize));
         FGC.strokeText(DiagramObjectLayout.getDiagramObject().getName(), TLX + 10, TLY + 20);
+        // Selection
+        if (DiagramObjectLayout.getIsSelected()) {
+            FGC.setLineWidth(FSelectSize);
+            FGC.setStroke(Color.MAGENTA);
+            FGC.strokeRect(TLX - FSelectSize, TLY - FSelectSize, DiagramObjectLayout.getWidth() + FSelectSize * 2, DiagramObjectLayout.getHeight() + FSelectSize * 2);
+        }
     }
 
     public NGUG2DBoxObjectDisplayController(Canvas aCanvas) {

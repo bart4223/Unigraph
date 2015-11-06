@@ -8,7 +8,6 @@ import Unigraph.Visuals.*;
 import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Appl.NGVisualApplicationModule;
 import Uniwork.Base.NGComponent;
-import Uniwork.Misc.NGLogManager;
 import Uniwork.Misc.NGStrings;
 
 public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule implements NGUnigraph2DAPI {
@@ -30,14 +29,10 @@ public class NGUnigraph2DApplicationModule extends NGVisualApplicationModule imp
         super(aOwner, aName);
         FObjectManager = new NGUGDiagramObjectManager(this, NGUnigraphConsts.C_COMPONENT_DOM);
         FLayoutManager = new NGUG2DDiagramLayoutManager(this, NGUnigraphConsts.C_COMPONENT_DOLM);
+        FLayoutManager.setObjectManager(FObjectManager);
+        FComponentManager.registerComponent(FObjectManager);
+        FComponentManager.registerComponent(FLayoutManager);
         FStageManager.registerItemClass("Diagram", "Unigraph.UI.NGUG2DDiagramStageItem");
-    }
-
-    @Override
-    public void setLogManager(NGLogManager aLogManager) {
-        super.setLogManager(aLogManager);
-        FObjectManager.setLogManager(aLogManager);
-        FLayoutManager.setLogManager(aLogManager);
     }
 
     @Override

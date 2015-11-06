@@ -10,6 +10,7 @@ public abstract class NGUGCustomDiagramObject extends NGObject {
     protected String FName;
     protected String FDescription;
     protected Object FReference;
+    protected Boolean FIsSelected;
 
     public NGUGCustomDiagramObject(String aName) {
         this(aName, null);
@@ -20,6 +21,7 @@ public abstract class NGUGCustomDiagramObject extends NGObject {
         FID = UUID.randomUUID().toString();
         FName = aName;
         FReference = aReference;
+        FIsSelected = false;
     }
 
     public String getKind() {
@@ -44,6 +46,14 @@ public abstract class NGUGCustomDiagramObject extends NGObject {
 
     public Object getReference() {
         return FReference;
+    }
+
+    public void setIsSelected(Boolean aValue) {
+        FIsSelected = aValue;
+    }
+
+    public Boolean getIsSelected() {
+        return FIsSelected;
     }
 
 }

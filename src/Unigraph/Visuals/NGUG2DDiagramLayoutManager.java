@@ -14,6 +14,7 @@ public class NGUG2DDiagramLayoutManager extends NGComponent {
     protected ArrayList<NGUGCustomDiagramLinkLayout> FLinkLayouts;
     protected ArrayList<NGUGDiagramLayoutEventListener> FEventListeners;
     protected ArrayList<NGUG2DDiagramLayer> FDiagramLayers;
+    protected NGUGDiagramObjectManager FObjectManager;
 
     protected synchronized void raiseLayerAddedEvent(NGUG2DDiagramLayer aDiagramLayer) {
         NGUG2DDiagramLayerEvent event = new NGUG2DDiagramLayerEvent(this, aDiagramLayer);
@@ -71,6 +72,15 @@ public class NGUG2DDiagramLayoutManager extends NGComponent {
         FLinkLayouts = new ArrayList<>();
         FEventListeners = new ArrayList<>();
         FDiagramLayers = new ArrayList<>();
+        FObjectManager = null;
+    }
+
+    public void setObjectManager(NGUGDiagramObjectManager aObjectManager) {
+        FObjectManager = aObjectManager;
+    }
+
+    public NGUGDiagramObjectManager getObjectManager() {
+        return FObjectManager;
     }
 
     public Iterator<NGUGCustomDiagramObjectLayout> getObjectLayouts() {
@@ -149,6 +159,37 @@ public class NGUG2DDiagramLayoutManager extends NGComponent {
     public void setObjectPosition(NGUG2DDiagramObjectLayout aObjectLayout, Double aX, Double aY) {
         aObjectLayout.setPosition(aX, aY);
         raiseObjectLayoutChangedEvent(aObjectLayout);
+    }
+
+    public void SelectObject(NGUG2DDiagramObjectLayout aObjectLayout) {
+        FObjectManager.SelectDiagramObject(aObjectLayout.getDiagramObject());
+    }
+
+    public void UnselectObject(NGUG2DDiagramObjectLayout aObjectLayout) {
+        FObjectManager.UnselectDiagramObject(aObjectLayout.getDiagramObject());
+    }
+
+    public void SelectAllObjects() {
+        FObjectManager.SelectAllDiagramObjects();
+    }
+
+    public void UnselectAllObjects() {
+        FObjectManager.UnselectAllDiagramObjects();
+    }
+
+    public void ToggleObjectSelection(NGUG2DDiagramObjectLayout aObjectLayout) {
+        FObjectManager.ToggleDiagramObjectSelection(aObjectLayout.getDiagramObject());
+    }
+
+    public Iterator<NGUG2DDiagramObjectLayout> getSelectedObjects() {
+        ArrayList<NGUG2DDiagramObjectLayout> res = new ArrayList<>();
+        Iterator<NGUGCustomDiagramObject> itr = FObjectManager.getSelectedObjects();
+        while (itr.hasNext()) {
+            NGUGCustomDiagramObject obj = itr.next();
+            NGUG2DDiagramObjectLayout layout = (NGUG2DDiagramObjectLayout)getObjectLayout(obj);
+            res.add(layout);
+        }
+        return res.iterator();
     }
 
 }

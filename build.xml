@@ -346,7 +346,7 @@
   </target>
 
   <target name="testall" depends="artifact.unigraph:jar" description="Perform Tests">
-    <java fork="true" classname="Unigraph.Test.NGTestRunner">
+    <java fork="true" classname="Unigraph.Test.NGUGTestRunner">
       <classpath>
         <path refid="library.junit-4.12.classpath"/>
         <path refid="library.hamcrest-core-1.3.classpath"/>

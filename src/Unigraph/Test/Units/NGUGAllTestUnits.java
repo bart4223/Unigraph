@@ -6,6 +6,6 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ NGUGBoxDiagramObjectTestUnit.class, NGUGClassDiagramObjectTest.class, NGUGTableDiagramObjectTest.class })
 
-public class NGAllTestUnits {
+public class NGUGAllTestUnits {
 
 }

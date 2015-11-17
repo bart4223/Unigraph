@@ -1,16 +1,16 @@
 package Unigraph.Test;
 
 import Uniwork.Test.NGCustomTestRunner;
-import Unigraph.Test.Units.NGAllTestUnits;
+import Unigraph.Test.Units.NGUGAllTestUnits;
 
-public class NGTestRunner extends NGCustomTestRunner{
+public class NGUGTestRunner extends NGCustomTestRunner {
 
-    public NGTestRunner(Class aTestClass) {
+    public NGUGTestRunner(Class aTestClass) {
         super(aTestClass);
     }
 
     public static void main(String[] args) {
-        TestRunner = new NGTestRunner(NGAllTestUnits.class);
+        TestRunner = new NGUGTestRunner(NGUGAllTestUnits.class);
         TestRunner.InitTests();
         TestRunner.RunTests();
     }

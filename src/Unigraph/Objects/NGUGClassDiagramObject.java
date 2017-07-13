@@ -2,13 +2,13 @@ package Unigraph.Objects;
 
 import Unigraph.Base.NGUGCustomDiagramObject;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGUGClassDiagramObject extends NGUGCustomDiagramObject {
 
-    protected ArrayList<String> FMembers;
-    protected ArrayList<String> FMethods;
+    protected CopyOnWriteArrayList<String> FMembers;
+    protected CopyOnWriteArrayList<String> FMethods;
 
     public NGUGClassDiagramObject(String aName) {
         this(aName, null);
@@ -16,8 +16,8 @@ public class NGUGClassDiagramObject extends NGUGCustomDiagramObject {
 
     public NGUGClassDiagramObject(String aName, Object aReference) {
         super(aName, aReference);
-        FMembers = new ArrayList<>();
-        FMethods = new ArrayList<>();
+        FMembers = new CopyOnWriteArrayList<>();
+        FMethods = new CopyOnWriteArrayList<>();
     }
 
     @Override

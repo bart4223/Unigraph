@@ -4,16 +4,16 @@ import Unigraph.Base.*;
 import Uniwork.Base.NGComponent;
 import Uniwork.Graphics.NGPoint2D;
 
-import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGUG2DDiagramLayoutManager extends NGComponent {
 
-    protected ArrayList<NGUGCustomDiagramObjectLayout> FObjectLayouts;
-    protected ArrayList<NGUGCustomDiagramLinkLayout> FLinkLayouts;
-    protected ArrayList<NGUGDiagramLayoutEventListener> FEventListeners;
-    protected ArrayList<NGUG2DDiagramLayer> FDiagramLayers;
+    protected CopyOnWriteArrayList<NGUGCustomDiagramObjectLayout> FObjectLayouts;
+    protected CopyOnWriteArrayList<NGUGCustomDiagramLinkLayout> FLinkLayouts;
+    protected CopyOnWriteArrayList<NGUGDiagramLayoutEventListener> FEventListeners;
+    protected CopyOnWriteArrayList<NGUG2DDiagramLayer> FDiagramLayers;
     protected NGUGDiagramObjectManager FObjectManager;
 
     protected synchronized void raiseLayerAddedEvent(NGUG2DDiagramLayer aDiagramLayer) {
@@ -68,10 +68,10 @@ public class NGUG2DDiagramLayoutManager extends NGComponent {
 
     public NGUG2DDiagramLayoutManager(NGComponent aOwner, String aName) {
         super(aOwner, aName);
-        FObjectLayouts = new ArrayList<>();
-        FLinkLayouts = new ArrayList<>();
-        FEventListeners = new ArrayList<>();
-        FDiagramLayers = new ArrayList<>();
+        FObjectLayouts = new CopyOnWriteArrayList<>();
+        FLinkLayouts = new CopyOnWriteArrayList<>();
+        FEventListeners = new CopyOnWriteArrayList<>();
+        FDiagramLayers = new CopyOnWriteArrayList<>();
         FObjectManager = null;
     }
 
@@ -182,7 +182,7 @@ public class NGUG2DDiagramLayoutManager extends NGComponent {
     }
 
     public Iterator<NGUG2DDiagramObjectLayout> getSelectedObjects() {
-        ArrayList<NGUG2DDiagramObjectLayout> res = new ArrayList<>();
+        CopyOnWriteArrayList<NGUG2DDiagramObjectLayout> res = new CopyOnWriteArrayList<>();
         Iterator<NGUGCustomDiagramObject> itr = FObjectManager.getSelectedObjects();
         while (itr.hasNext()) {
             NGUGCustomDiagramObject obj = itr.next();

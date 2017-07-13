@@ -6,12 +6,12 @@ import Uniwork.Visuals.NGDisplayController;
 import Uniwork.Visuals.NGDisplayManager;
 import javafx.scene.canvas.Canvas;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGUG2DDiagramDisplayManager extends NGDisplayManager {
 
-    protected ArrayList<NGUGCustomDiagramObjectLayout> FObjectLayouts;
-    protected ArrayList<NGUGCustomDiagramLinkLayout> FLinkLayouts;
+    protected CopyOnWriteArrayList<NGUGCustomDiagramObjectLayout> FObjectLayouts;
+    protected CopyOnWriteArrayList<NGUGCustomDiagramLinkLayout> FLinkLayouts;
 
     protected void CreateDiagramDisplayController() {
         // Object-DC's
@@ -76,8 +76,8 @@ public class NGUG2DDiagramDisplayManager extends NGDisplayManager {
     public NGUG2DDiagramDisplayManager(Canvas aCanvas, String aName) {
         super(aCanvas, aName);
         CreateDiagramDisplayController();
-        FObjectLayouts = new ArrayList<>();
-        FLinkLayouts = new ArrayList<>();
+        FObjectLayouts = new CopyOnWriteArrayList<>();
+        FLinkLayouts = new CopyOnWriteArrayList<>();
     }
 
     public void addObjectLayout(NGUGCustomDiagramObjectLayout aObjectLayout) {

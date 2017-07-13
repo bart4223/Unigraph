@@ -17,10 +17,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import sun.plugin.javascript.navig4.Layer;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGUG2DDiagramStageController extends NGStageController {
 
@@ -55,7 +54,7 @@ public class NGUG2DDiagramStageController extends NGStageController {
     @FXML
     private Canvas LayerTop;
 
-    protected ArrayList<DiagramLayer> FDiagramLayers;
+    protected CopyOnWriteArrayList<DiagramLayer> FDiagramLayers;
     protected NGDisplayView FDisplayView;
     protected NGUG2DDiagramLayoutManager FLayoutManager;
     protected NGPoint2D FCurrentPos;
@@ -194,7 +193,7 @@ public class NGUG2DDiagramStageController extends NGStageController {
 
     public NGUG2DDiagramStageController(NGCustomStageItem aStageItem) {
         super(aStageItem);
-        FDiagramLayers = new ArrayList<>();
+        FDiagramLayers = new CopyOnWriteArrayList<>();
         FCurrentPos = new NGPoint2D(0, 0);
         FGridDistance = getConfigurationPropertyAsInteger("NGUnigraph2DApplicationModule.GridDistance", 20);
     }

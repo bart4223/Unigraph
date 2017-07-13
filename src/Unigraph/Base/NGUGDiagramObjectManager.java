@@ -3,15 +3,15 @@ package Unigraph.Base;
 import Unigraph.NGUnigraphConsts;
 import Uniwork.Base.NGComponent;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGUGDiagramObjectManager extends NGComponent {
 
-    protected ArrayList<NGUGCustomDiagramObject> FObjects;
-    protected ArrayList<NGUGCustomDiagramLink> FLinks;
-    protected ArrayList<NGUGDiagramEventListener> FEventListeners;
-    protected ArrayList<NGUGCustomDiagramObject> FSelectedObjects;
+    protected CopyOnWriteArrayList<NGUGCustomDiagramObject> FObjects;
+    protected CopyOnWriteArrayList<NGUGCustomDiagramLink> FLinks;
+    protected CopyOnWriteArrayList<NGUGDiagramEventListener> FEventListeners;
+    protected CopyOnWriteArrayList<NGUGCustomDiagramObject> FSelectedObjects;
 
     protected synchronized void raiseObjectAddedEvent(NGUGCustomDiagramObject aDiagramObject) {
         NGUGDiagramObjectEvent event = new NGUGDiagramObjectEvent(this, aDiagramObject);
@@ -36,10 +36,10 @@ public class NGUGDiagramObjectManager extends NGComponent {
 
     public NGUGDiagramObjectManager(NGComponent aOwner, String aName) {
         super(aOwner, aName);
-        FObjects = new ArrayList<>();
-        FLinks = new ArrayList<>();
-        FEventListeners = new ArrayList<>();
-        FSelectedObjects = new ArrayList<>();
+        FObjects = new CopyOnWriteArrayList<>();
+        FLinks = new CopyOnWriteArrayList<>();
+        FEventListeners = new CopyOnWriteArrayList<>();
+        FSelectedObjects = new CopyOnWriteArrayList<>();
     }
 
     public Iterator<NGUGCustomDiagramObject> getObjects() {
